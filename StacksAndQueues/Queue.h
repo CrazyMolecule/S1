@@ -10,7 +10,7 @@ public:
     Queue(Queue&& value); // move constructor
     ~Queue(); // destructor
 
-    Queue& operator=(T* value); // default assignment operator
+    Queue& operator=(T value[]); // default assignment operator
     Queue& operator=(Queue& value); // copy assignment operator
     Queue& operator=(Queue&& value); // move assignment operator
     Queue operator+(Queue& other);

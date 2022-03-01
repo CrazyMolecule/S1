@@ -17,21 +17,19 @@ Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size])
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(new T[value.m_Size])
+Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(value.m_Queue)
 {
 	std::cout << __FUNCTION__ << "(Queue& valueû)" << std::endl;
-	m_Queue = value.m_Queue;
 }
 
 // move constructor
 template<typename T>
-Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(new T[value.m_Size])
+Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(value.m_Queue)
 {
 	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
-	m_Queue = value.m_Queue;
 
-	value->m_Queue = nullptr;
-	value->m_Size = nullptr;
+	value.m_Queue = NULL;
+	value.m_Size = NULL;
 }
 
 // destructor
@@ -44,23 +42,38 @@ Queue<T>::~Queue()
 
 // default assignment operator
 template<typename T>
-Queue<T>& Queue<T>::operator=(T* value)
+Queue<T>& Queue<T>::operator=(T value[])
 {
-	std::cout << __FUNCTION__ << std::endl;
+	/*std::cout << __FUNCTION__ << std::endl;
+	m_Size = sizeof(value) / sizeof(T);
+	m_Queue = new T[m_Size];
+	for (size_t i = 0; i < m_Size; i++)
+		m_Queue[i] = value[i];
+
+	return *this;*/
 }
 
 // copy assignment operator
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue& value)
 {
-	std::cout << __FUNCTION__ << std::endl;
+	std::cout << __FUNCTION__ << "(Queue& value)" << std::endl;
+	m_Size = value.m_Size;
+	m_Queue = value.m_Queue;
+	return *this;
 }
 
 // move assignment operator
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue&& value)
 {
-	std::cout << __FUNCTION__ << std::endl;
+	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
+	m_Size = value.m_Size;
+	m_Queue = value.m_Queue;
+
+	value.m_Queue = NULL;
+	value.m_Size = NULL;
+	return *this;
 }
 
 template<typename T>
