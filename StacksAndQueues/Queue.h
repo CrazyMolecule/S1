@@ -3,6 +3,16 @@ template<typename T>
 class Queue
 {
 public:
-	void push(T rhs);
-	T drop();
+	Queue();
+	Queue(T* queue);
+	Queue(Queue& queue);
+	Queue(Queue&& value);
+	void push(T item);
+	T pop();
+	int getCount();
+	~Queue();
+
+private:
+	T* queue;
+	int count;
 };
