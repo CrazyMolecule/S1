@@ -8,13 +8,13 @@ Queue<T>::Queue()
 
 // default constructor
 template<typename T>
-Queue<T>::Queue(T* queue)
+Queue<T>::Queue(T* value)
 {
 }
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& queue)
+Queue<T>::Queue(Queue& value)
 {
 }
 
@@ -32,19 +32,29 @@ Queue<T>::~Queue()
 
 // default assignment operator
 template<typename T>
-Queue<T>& Queue<T>::operator=(T* queue)
+Queue<T>& Queue<T>::operator=(T* value)
 {
 }
 
 // copy assignment operator
 template<typename T>
-Queue<T>& Queue<T>::operator=(Queue& queue)
+Queue<T>& Queue<T>::operator=(Queue& value)
 {
 }
 
 // move assignment operator
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue&& value)
+{
+}
+
+template<typename T>
+Queue<T> Queue<T>::operator+(Queue& other)
+{
+}
+
+template<typename T>
+bool Queue<T>::operator==(const Queue& other)
 {
 }
 
