@@ -1,10 +1,11 @@
 #pragma once
+
 template<typename T>
 class Queue
 {
 public:
     Queue(); // null constructor
-    Queue(T* value); // default constructor
+    Queue(int size); // default constructor
     Queue(Queue& value); // copy constructor
     Queue(Queue&& value); // move constructor
     ~Queue(); // destructor
@@ -13,7 +14,7 @@ public:
     Queue& operator=(Queue& value); // copy assignment operator
     Queue& operator=(Queue&& value); // move assignment operator
     Queue operator+(Queue& other);
-    bool operator==(const Queue& other);
+    bool operator==(Queue& other);
 
     void push(T item); // add item to the queue
     T pop(); // pop item from queue
@@ -22,7 +23,7 @@ public:
 
 private:
     T* queue; // {T, T, T, T, T, ...}
-    int count; // count of items in {T, T, T, T, T, ...}
+    int size; // count of items in {T, T, T, T, T, ...}
 };
 
 template<typename T>
