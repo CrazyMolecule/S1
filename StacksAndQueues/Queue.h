@@ -8,18 +8,18 @@ public:
     Queue(int size); // default constructor
     Queue(Queue& value); // copy constructor
     Queue(Queue&& value); // move constructor
-    ~Queue(); // destructor
+    ~Queue(); // destructor (---)
 
-    Queue& operator=(T value[]); // default assignment operator
+    Queue& operator=(T value[]); // default assignment operator (---)
     Queue& operator=(Queue& value); // copy assignment operator
     Queue& operator=(Queue&& value); // move assignment operator
-    Queue operator+(Queue& other);
-    bool operator==(Queue& other);
+    Queue operator+(Queue& other); // (---)
+    bool operator==(Queue& other); // (---)
 
-    void push(T item); // add item to the queue
-    T pop(); // pop item from queue
+    void push(T item); // add item to the queue (---)
+    T pop(); // pop item from queue (---)
     int getCount(); // get count of items in queue
-    bool isEmpty(); // is queue empty 
+    bool isEmpty(); // is queue empty (---)
 
 private:
     T* m_Queue; // {T, T, T, T, T, ...}
