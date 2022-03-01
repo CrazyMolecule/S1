@@ -19,16 +19,18 @@ Queue<T>::Queue(int size)
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& value)
+Queue<T>::Queue(Queue& value) : queue(value.queue), size(value.size)
 {
 	std::cout << __FUNCTION__ << std::endl;
 }
 
 // move constructor
 template<typename T>
-Queue<T>::Queue(Queue&& value)
+Queue<T>::Queue(Queue&& value) : queue(value.queue), size(value.size)
 {
 	std::cout << __FUNCTION__ << std::endl;
+	value.queue = nullptr;
+	value.size = nullptr;
 }
 
 // destructor
