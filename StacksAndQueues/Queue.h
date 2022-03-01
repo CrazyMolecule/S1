@@ -3,14 +3,14 @@ template<typename T>
 class Queue
 {
 public:
-	Queue(); // нулевой конструктор
-	Queue(T* queue); // обычный конструктор
-	Queue(Queue& queue); // конструктор копирования
-	Queue(Queue&& value); // конструктор перемещения
+	Queue(); // null constructor
+	Queue(T* queue); // default constructor
+	Queue(Queue& queue); // copy constructor
+	Queue(Queue&& value); // move constructor
 	void push(T item);
 	T pop();
 	int getCount();
-	~Queue(); // деструктор
+	~Queue(); // destructor
 
 private:
 	T* queue; // {T, T, T, T, T, ...}
