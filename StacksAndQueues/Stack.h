@@ -6,4 +6,3 @@ public:
 	void push(T rhs);
 	T drop();
 };
-
