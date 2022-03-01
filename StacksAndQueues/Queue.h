@@ -22,8 +22,8 @@ public:
     bool isEmpty(); // is queue empty 
 
 private:
-    T* queue; // {T, T, T, T, T, ...}
-    int size; // count of items in {T, T, T, T, T, ...}
+    T* m_Queue; // {T, T, T, T, T, ...}
+    int m_Size; // count of items in {T, T, T, T, T, ...}
 };
 
 template<typename T>

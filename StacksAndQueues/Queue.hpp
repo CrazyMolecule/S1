@@ -5,32 +5,33 @@
 template<typename T>
 Queue<T>::Queue() : Queue(0)
 {
-	std::cout << __FUNCTION__ << std::endl;
+	std::cout << __FUNCTION__ << "()" << std::endl;
 }
 
 // default constructor
 template<typename T>
-Queue<T>::Queue(int size)
+Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size])
 {
-	std::cout << __FUNCTION__ << std::endl;
-	this->size = size;
-	queue = new T[size];
+	std::cout << __FUNCTION__ << "(int size)" << std::endl;
 }
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& value) : queue(value.queue), size(value.size)
+Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(new T[value.m_Size])
 {
-	std::cout << __FUNCTION__ << std::endl;
+	std::cout << __FUNCTION__ << "(Queue& valueû)" << std::endl;
+	m_Queue = value.m_Queue;
 }
 
 // move constructor
 template<typename T>
-Queue<T>::Queue(Queue&& value) : queue(value.queue), size(value.size)
+Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(new T[value.m_Size])
 {
-	std::cout << __FUNCTION__ << std::endl;
-	value.queue = nullptr;
-	value.size = nullptr;
+	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
+	m_Queue = value.m_Queue;
+
+	value->m_Queue = nullptr;
+	value->m_Size = nullptr;
 }
 
 // destructor
@@ -38,7 +39,7 @@ template<typename T>
 Queue<T>::~Queue()
 {
 	std::cout << __FUNCTION__ << std::endl;
-	delete queue;
+	// delete[] m_Queue;
 }
 
 // default assignment operator
@@ -93,7 +94,7 @@ template<typename T>
 int Queue<T>::getCount()
 {
 	std::cout << __FUNCTION__ << std::endl;
-	return size;
+	return m_Size;
 }
 
 template<typename T>
