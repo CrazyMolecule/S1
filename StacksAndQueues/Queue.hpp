@@ -4,31 +4,20 @@
 
 // null constructor
 template<typename T>
-Queue<T>::Queue() : Queue(0)
-{
-	std::cout << __FUNCTION__ << "()" << std::endl;
-}
+Queue<T>::Queue() : Queue(0) {}
 
 // default constructor
 template<typename T>
-Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size]), m_Count(0)
-{
-	std::cout << __FUNCTION__ << "(int size)" << std::endl;
-}
+Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size]), m_Count(0) {}
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m_Count(value.m_Count)
-{
-	std::cout << __FUNCTION__ << "(Queue& valueû)" << std::endl;
-}
+Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m_Count(value.m_Count) {}
 
 // move constructor
 template<typename T>
 Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m_Count(value.m_Count)
 {
-	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
-
 	value.m_Queue = NULL;
 	value.m_Size = NULL;
 	value.m_Count = NULL;
@@ -38,7 +27,6 @@ Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m
 template<typename T>
 Queue<T>::~Queue()
 {
-	std::cout << __FUNCTION__ << std::endl;
 	// delete[] m_Queue;
 }
 
@@ -59,7 +47,6 @@ Queue<T>& Queue<T>::operator=(T value[])
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue& value)
 {
-	std::cout << __FUNCTION__ << "(Queue& value)" << std::endl;
 	m_Size = value.m_Size;
 	m_Queue = value.m_Queue;
 	m_Count = value.m_Count;
@@ -70,7 +57,6 @@ Queue<T>& Queue<T>::operator=(Queue& value)
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue&& value)
 {
-	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
 	m_Size = value.m_Size;
 	m_Queue = value.m_Queue;
 	m_Count = value.m_Count;
@@ -84,31 +70,30 @@ Queue<T>& Queue<T>::operator=(Queue&& value)
 template<typename T>
 Queue<T> Queue<T>::operator+(Queue& other)
 {
-	std::cout << __FUNCTION__ << std::endl;
 }
 
 template<typename T>
 bool Queue<T>::operator==(Queue& other)
 {
-	std::cout << __FUNCTION__ << std::endl;
 }
-
-
 
 // add item to the queue
 template<typename T>
 void Queue<T>::push(T item)
 {
-	std::cout << __FUNCTION__ << std::endl;
 	T* temporary;
 	if (m_Count == m_Size)
-		T* temporary = new T[m_Size + 1];
+	{
+		temporary = new T[m_Size + 1];
+		m_Size++;
+	}
 	else
-		T* temporary = new T[m_Size];
+		temporary = new T[m_Size];
 
 	for (size_t i = 0; i < m_Count; i++)
-		temporary[i] = m_Count[i];
-	temporary[m_Count + 1] = item;
+		temporary[i] = m_Queue[i];
+	temporary[m_Count] = item;
+	m_Count++;
 
 	m_Queue = temporary;
 }
@@ -117,19 +102,33 @@ void Queue<T>::push(T item)
 template<typename T>
 T Queue<T>::pop()
 {
-	std::cout << __FUNCTION__ << std::endl;
+	if (m_Size != 0)
+	{
+		T* temporary;
+		m_Size--;
+		if (m_Count != 0)
+			m_Count--;
+		temporary = new T[m_Size];
+
+		for (size_t i = 0; i < m_Size; i++)
+			temporary[i] = m_Queue[i + 1];
+
+		T item = m_Queue[0];
+		m_Queue = temporary;
+		return item;
+	}
+	else
+		throw;
 }
 
 // get count of items in queue
 template<typename T>
 int Queue<T>::getCount()
 {
-	std::cout << __FUNCTION__ << std::endl;
 	return m_Size;
 }
 
 template<typename T>
 bool Queue<T>::isEmpty()
 {
-	std::cout << __FUNCTION__ << std::endl;
 }
