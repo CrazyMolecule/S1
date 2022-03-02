@@ -19,4 +19,6 @@ int main()
     v.push_back(queue<char*>(25)); // move constr test
 
     myQueue = myQueue2; // copy assignment operator test
+
+    std::cout << myQueue << std::endl;
 }

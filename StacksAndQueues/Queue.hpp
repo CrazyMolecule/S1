@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "Queue.h"
 
 // null constructor
@@ -10,26 +11,27 @@ Queue<T>::Queue() : Queue(0)
 
 // default constructor
 template<typename T>
-Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size])
+Queue<T>::Queue(int size) : m_Size(size), m_Queue(new T[size]), m_Count(0)
 {
 	std::cout << __FUNCTION__ << "(int size)" << std::endl;
 }
 
 // copy constructor
 template<typename T>
-Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(value.m_Queue)
+Queue<T>::Queue(Queue& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m_Count(value.m_Count)
 {
 	std::cout << __FUNCTION__ << "(Queue& valueû)" << std::endl;
 }
 
 // move constructor
 template<typename T>
-Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(value.m_Queue)
+Queue<T>::Queue(Queue&& value) : m_Size(value.m_Size), m_Queue(value.m_Queue), m_Count(value.m_Count)
 {
 	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
 
 	value.m_Queue = NULL;
 	value.m_Size = NULL;
+	value.m_Count = NULL;
 }
 
 // destructor
@@ -60,6 +62,7 @@ Queue<T>& Queue<T>::operator=(Queue& value)
 	std::cout << __FUNCTION__ << "(Queue& value)" << std::endl;
 	m_Size = value.m_Size;
 	m_Queue = value.m_Queue;
+	m_Count = value.m_Count;
 	return *this;
 }
 
@@ -70,9 +73,11 @@ Queue<T>& Queue<T>::operator=(Queue&& value)
 	std::cout << __FUNCTION__ << "(Queue&& value)" << std::endl;
 	m_Size = value.m_Size;
 	m_Queue = value.m_Queue;
+	m_Count = value.m_Count;
 
 	value.m_Queue = NULL;
 	value.m_Size = NULL;
+	value.m_Count = NULL;
 	return *this;
 }
 
@@ -88,11 +93,24 @@ bool Queue<T>::operator==(Queue& other)
 	std::cout << __FUNCTION__ << std::endl;
 }
 
+
+
 // add item to the queue
 template<typename T>
 void Queue<T>::push(T item)
 {
 	std::cout << __FUNCTION__ << std::endl;
+	T* temporary;
+	if (m_Count == m_Size)
+		T* temporary = new T[m_Size + 1];
+	else
+		T* temporary = new T[m_Size];
+
+	for (size_t i = 0; i < m_Count; i++)
+		temporary[i] = m_Count[i];
+	temporary[m_Count + 1] = item;
+
+	m_Queue = temporary;
 }
 
 // pop item from queue
