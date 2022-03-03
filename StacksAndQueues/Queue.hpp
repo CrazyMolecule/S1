@@ -49,7 +49,6 @@ Queue<T>& Queue<T>::operator=(Queue& value)
 template<typename T>
 Queue<T>& Queue<T>::operator=(Queue&& value)
 {
-	std::cout << "operator=(Queue&& value)" << std::endl;
 	m_Size = value.m_Size;
 	m_Queue = value.m_Queue;
 	m_Count = value.m_Count;
@@ -103,9 +102,9 @@ void Queue<T>::push(T item)
 	else
 		temporary = new T[m_Size];
 
-	for (size_t i = 0; i < m_Count; i++)
-		temporary[i] = m_Queue[i];
-	temporary[m_Count] = item;
+	temporary[0] = item;
+	for (size_t i = 1; i < m_Count; i++)
+		temporary[i] = m_Queue[i - 1];
 	m_Count++;
 
 	m_Queue = temporary;
