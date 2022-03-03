@@ -10,7 +10,6 @@ public:
     Queue(Queue&& value); // move constructor
     ~Queue(); // destructor
 
-    Queue& operator=(T value[]); // default assignment operator (---)
     Queue& operator=(Queue& value); // copy assignment operator
     Queue& operator=(Queue&& value); // move assignment operator
     Queue operator+(Queue& other);
@@ -39,6 +38,8 @@ private:
     T* m_Queue; // {T, T, T, T, T, ...}
     int m_Size; // count of spaces in {T, T, T, T, T, ...}
     int m_Count; // count of items in {T, T, T, T, T, ...}
+
+    void replaceQueue(Queue& value);
 };
 
 template<typename T>
