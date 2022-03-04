@@ -93,6 +93,9 @@ Stack<T>::~Stack() {
 
 }
 
+template <typename T>
+using stack = Stack<T>; // can initialize objects like queue<T> obj, as opposed to Queue<T> obj
+
 int main() {
 	Stack <int> myStack(3);
 	myStack.push(1);
