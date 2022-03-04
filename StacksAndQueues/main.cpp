@@ -3,6 +3,13 @@
 template<typename T>
 class Queue
 {
+private:
+	T* m_Queue; // {T, T, T, T, T, ...}
+	int m_Size; // count of spaces in {T, T, T, T, T, ...}
+	int m_Count; // count of items in {T, T, T, T, T, ...}
+
+	void replaceQueue(Queue& value);
+
 public:
 	Queue(); // null constructor
 	Queue(int size); // default constructor
@@ -33,13 +40,6 @@ public:
 	T pop(); // pop item from queue
 	int getCount(); // get count of items in queue
 	bool isEmpty(); // is queue empty (m_Count == 0)
-
-private:
-	T* m_Queue; // {T, T, T, T, T, ...}
-	int m_Size; // count of spaces in {T, T, T, T, T, ...}
-	int m_Count; // count of items in {T, T, T, T, T, ...}
-
-	void replaceQueue(Queue& value);
 };
 
 template<typename T>
@@ -202,10 +202,10 @@ void Queue<T>::replaceQueue(Queue& value)
 		m_Queue[i] = value.m_Queue[i];
 }
 
-template < typename T >
-class Stack {
+template <typename T>
+class Stack 
+{
 private:
-
 	T* m_Stack;
 	T m_Top;
 	int m_Count;
@@ -219,7 +219,7 @@ public:
 	T pop();					// Removes top element
 	T returnValue(int elementNo);
 	T peek();					// Peek at top element
-	int returnCount();			// Returns amount of elements in stack
+	int getCount();			// Returns amount of elements in stack
 	~Stack();
 };
 
@@ -230,7 +230,8 @@ template <typename T>
 Stack<T>::Stack(int size) : m_Stack(new T[size]), m_Count(0), m_Size(size), m_Top(0) {}
 
 template <typename T>
-void Stack<T>::push(T element) {
+void Stack<T>::push(T element) 
+{
 
 	T* tempStack;
 	if (m_Count == m_Size)
@@ -250,7 +251,8 @@ void Stack<T>::push(T element) {
 }
 
 template <typename T>
-T Stack<T>::pop() {
+T Stack<T>::pop() 
+{
 	T* tempStack;
 
 	tempStack = new T[m_Size];
@@ -263,34 +265,30 @@ T Stack<T>::pop() {
 	return m_Top;
 }
 
-
 template <typename T>
-T Stack<T>::returnValue(int elementNo) {
+T Stack<T>::returnValue(int elementNo) 
+{
 
 	return m_Stack[elementNo];
 
 }
 
 template <typename T>
-T Stack<T>::peek() {
-
+T Stack<T>::peek() 
+{
 	return m_Stack[m_Count - 1];
-
 }
 
-
 template <typename T>
-int Stack<T>::returnCount() {
-
+int Stack<T>::getCount() 
+{
 	return m_Count;
-
 }
 
 template <typename T>
-Stack<T>::~Stack() {
-
+Stack<T>::~Stack() 
+{
 	delete[] m_Stack;
-
 }
 
 template <typename T>
@@ -298,17 +296,13 @@ using stack = Stack<T>; // can initialize objects like queue<T> obj, as opposed 
 
 int main()
 {
-	queue<int> myQueue;
+	stack<int> myQueue;
 	myQueue.push(5);
 	myQueue.push(4);
-	std::cout << myQueue << std::endl;
 
-	queue<int> myQueue2;
+	stack<int> myQueue2;
 	myQueue2.push(3);
 	myQueue2.push(3);
-	std::cout << myQueue2 << std::endl;
 
-	queue<int> myQueue3 = myQueue + myQueue2;
-
-	std::cout << myQueue3 << std::endl;
+	// stack<int> myQueue3 = myQueue + myQueue2;
 }
