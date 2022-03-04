@@ -1,4 +1,8 @@
 ﻿#include <iostream>
+#include <iostream>
+#include "Queue.h"
+#include "Stack.h"
+
 int main()
 {
 	stack<int> myQueue;
