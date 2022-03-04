@@ -1,23 +1,35 @@
 ﻿#include <iostream>
+#include <fstream>
 #include "Queue.h"
-#include "Queue.hpp"
 
-#include <vector>;
+#include <stack>
 
 
-int main()
+int main(std::string path)
 {
+    /*setlocale(LC_ALL, "ru");
+
+    std::string filename = "filename.txt";
+
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        std::cerr << "Ошибка: Файл ввода не открыт!";
+        return -1;
+    }
+
+    std::string chinchopa;
+    
+    while (!file.eof())
+    {
+        file >> chinchopa;
+        std::cout << chinchopa;
+    }
+
+    file.close();*/
+
     queue<int> myQueue;
-    myQueue.push(5);
-    myQueue.push(5);
-    std::cout << myQueue << std::endl;
+    // std::stack<int> myStack;
 
-    queue<int> myQueue2;
-    myQueue2.push(3);
-    myQueue2.push(3);
-    std::cout << myQueue2 << std::endl;
-
-    queue<int> myQueue3(myQueue + myQueue2);
-
-    std::cout << myQueue3 << std::endl;
+    return 0;
 }

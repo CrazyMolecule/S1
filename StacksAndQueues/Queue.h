@@ -1,20 +1,13 @@
 #pragma once
+#include "List.h"
 
 template<typename T>
-class Queue
+class Queue : List<T>
 {
 public:
-    Queue(); // null constructor
-    Queue(int size); // default constructor
-    Queue(Queue& value); // copy constructor
-    Queue(Queue&& value); // move constructor
-    ~Queue(); // destructor
-
-    Queue& operator=(Queue& value); // copy assignment operator
-    Queue& operator=(Queue&& value); // move assignment operator
-    Queue operator+(Queue& other);
-    bool operator==(Queue& other);
-    friend std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
+    using List<T>::pushBack;
+    using List<T>::popFront;
+    /*friend std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
     {
         out << "Queue(queue={";
         for (size_t i = 0; i < value.m_Size; i++)
@@ -27,19 +20,17 @@ public:
         out << ", count=" << value.m_Count << ", size=" << value.m_Size << ")";
 
         return out;
-    }
+    }*/
 
-    void push(T item); // add item to the queue
-    T pop(); // pop item from queue
-    int getCount(); // get count of items in queue
-    bool isEmpty(); // is queue empty (m_Count == 0)
+    void push(T item) 
+    { 
+        pushBack(item); 
+    };
 
-private:
-    T* m_Queue; // {T, T, T, T, T, ...}
-    int m_Size; // count of spaces in {T, T, T, T, T, ...}
-    int m_Count; // count of items in {T, T, T, T, T, ...}
-
-    void replaceQueue(Queue& value);
+    T pop() 
+    {
+        return popFront();
+    };
 };
 
 template<typename T>
