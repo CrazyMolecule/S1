@@ -1,21 +1,109 @@
 ﻿#include <iostream>
-#include "Stack.h"
+#include <string>
+#include <stack>
 
-int main()
-{
-	Stack<int> myStack;
-	return 0; // returns 0
+template < typename T >
+class Stack {
+private:
 
-    stack<int> myStack; // null constr test
+	T* m_Stack;
+	T m_Top;
+	int m_Count;
+	int m_Size;
 
-    stack<int> myStack2(5); // default constr test
+public:
+	//Methods
+	Stack();					// Null constructor
+	Stack(int size);			// Default constructor
+	void push(T element);		// Push to top
+	T pop();					// Removes top element
+	T returnValue(int elementNo);
+	T peek();					// Peek at top element
+	int returnCount();			// Returns amount of elements in stack
+	~Stack();
+};
 
-    stack<int> myStack3(myStack2); // copy constr test
+template <typename T>
+Stack<T>::Stack() : Stack(0) {}
 
-    std::cout << myStack3.getCount() << std::endl; // getCount test
+template <typename T>
+Stack<T>::Stack(int size) : m_Stack(new T[size]), m_Count(0), m_Size(size), m_Top(0) {}
 
-    std::vector<stack<char*>> v; // !!! #include <vector>;
-    v.push_back(stack<char*>(25)); // move constr test
+template <typename T>
+void Stack<T>::push(T element) {
 
-    myStack = myStack2; // copy assignment operator test
+	T* tempStack;
+	if (m_Count == m_Size)
+	{
+		tempStack = new T[m_Size + 1];
+		m_Size++;
+	}
+	else
+		tempStack = new T[m_Size];
+
+	for (int i = 0; i < m_Count; i++)
+		tempStack[i] = m_Stack[i];
+	tempStack[m_Count] = element;
+	m_Count++;
+	m_Stack = tempStack;
+	m_Top = m_Stack[m_Count - 1];
+}
+
+template <typename T>
+T Stack<T>::pop() {
+	T* tempStack;
+
+	tempStack = new T[m_Size];
+	m_Count--;
+	m_Top = m_Stack[m_Count];
+	for (int i = 0; i < m_Count; i++)
+		tempStack[i] = m_Stack[i];
+
+	m_Stack = tempStack;
+	return m_Top;
+}
+
+
+template <typename T>
+T Stack<T>::returnValue(int elementNo) {
+
+	return m_Stack[elementNo];
+
+}
+
+template <typename T>
+T Stack<T>::peek() {
+
+	return m_Stack[m_Count - 1];
+
+}
+
+
+template <typename T>
+int Stack<T>::returnCount() {
+
+	return m_Count;
+
+}
+
+template <typename T>
+Stack<T>::~Stack() {
+
+	delete[] m_Stack;
+
+}
+
+int main() {
+	Stack <int> myStack(3);
+	myStack.push(1);
+	myStack.push(2);
+	myStack.push(3);
+	myStack.push(4);
+	std::cout << myStack.pop() << std::endl;
+	std::cout << myStack.pop() << std::endl;
+	std::cout << myStack.pop() << std::endl;
+	std::cout << myStack.peek() << std::endl;
+	std::cout << myStack.pop() << std::endl;
+
+	return 0;
 }
