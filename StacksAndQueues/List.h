@@ -6,32 +6,34 @@
 template<typename T>
 class List
 {
-public:
-    List();
-    List(int size);
-    List(List& value);
-	~List();
-
-	List& operator=(List& value);
-	bool operator==(List& other);
-
-	int getCount();
-	bool isEmpty();
+private:
+	void replaceList(List& value);
 
 protected:
 	T* m_List;
 	int m_Size;
 	int m_Count = 0;
 
-private:
-    void replaceList(List& value);
+public:
+    List();
+    List(int size);
+    List(List& value);
+	List(List&& value);
+	~List();
+
+	List& operator=(List& value);
+	List& operator=(List&& value);
+	bool operator==(List& other);
+
+	int getCount();
+	bool isEmpty();
 };
 
 template<typename T>
 List<T>::List() : List(0) {}
 
 template<typename T>
-List<T>::List(int size) : m_Size(size), m_List(new T[size]) {}
+List<T>::List(int size) : m_List(new T[size]), m_Size(size) {}
 
 template<typename T>
 List<T>::List(List& value) : m_Size(value.m_Size), m_Count(value.m_Count)
@@ -40,9 +42,16 @@ List<T>::List(List& value) : m_Size(value.m_Size), m_Count(value.m_Count)
 }
 
 template<typename T>
+List<T>::List(List&& value) : m_List(value.m_List), m_Size(value.m_Size), m_Count(value.m_Count)
+{
+	value.m_List = NULL;
+	value.m_Size = NULL;
+	value.m_Count = NULL;
+}
+
+template<typename T>
 List<T>::~List()
 {
-	std::cout << __func__ << std::endl;
 	delete m_List;
 }
 
@@ -54,6 +63,19 @@ List<T>& List<T>::operator=(List& value)
 	m_Size = value.m_Size;
 	m_Count = value.m_Count;
 
+	return *this;
+}
+
+template<typename T>
+List<T>& List<T>::operator=(List&& value)
+{
+	m_List = value.m_List;
+	m_Size = value.m_Size;
+	m_Count = value.m_Count;
+
+	value.m_List = NULL;
+	value.m_Size = NULL;
+	value.m_Count = NULL;
 	return *this;
 }
 
