@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONVERTER_H 
+#define CONVERTER_H
 
 #include <string>
 
@@ -23,3 +24,5 @@ public:
 	Converter& toPostfix();
 	long long calculate();
 };
+
+#endif

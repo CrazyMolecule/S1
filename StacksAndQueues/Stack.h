@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STACK_H 
+#define STACK_H
 
 template <typename T>
 class Stack
@@ -91,3 +92,5 @@ Stack<T>::~Stack()
 
 template <typename T>
 using stack = Stack<T>; // can initialize objects like queue<T> obj, as opposed to Queue<T> obj
+
+#endif

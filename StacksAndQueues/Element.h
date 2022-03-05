@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ELEMENT_H
+#define ELEMENT_H
 
 #include <string>
 
@@ -27,3 +28,5 @@ public:
     Element(std::string value);
 };
 using element = Element;
+
+#endif
