@@ -1,17 +1,57 @@
 ﻿#include <iostream>
-#include <iostream>
+#include <fstream>
+#include <string>
+
 #include "Queue.h"
 #include "Stack.h"
+#include "Converter.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-	stack<int> myQueue;
-	myQueue.push(5);
-	myQueue.push(4);
+    setlocale(LC_ALL, "ru");
 
-	stack<int> myQueue2;
-	myQueue2.push(3);
-	myQueue2.push(3);
+    std::istream* input;
+    std::ifstream fileInput;
 
-	// stack<int> myQueue3 = myQueue + myQueue2;
+    // Open file or read from console
+    if (argc == 1) 
+    {
+        input = &std::cin;
+    }
+    else 
+    {
+        std::string filename = argv[1];
+        fileInput.open(filename);
+        input = &fileInput;
+
+        if (!fileInput.is_open()) {
+            std::cerr << "Ошибка: Файл ввода не открыт!";
+            return -1;
+        }
+    }
+
+    // Convert file lines from infix to postfix
+    stack<long long> output;
+    std::string line = "";
+    try 
+    {
+        while (getline(*input, line))
+        {
+            if (line.empty())
+                continue;
+
+            Converter convertible(line);
+            output.push(convertible.toPostfix().calculate());
+        }
+    }
+    catch (const char* exeption)
+    {
+        std::cerr << "Ошибка: " << exeption << std::endl;
+        return -1;
+    }
+
+
+    fileInput.close();
+
+    return 0;
 }

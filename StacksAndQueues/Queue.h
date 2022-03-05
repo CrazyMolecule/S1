@@ -45,6 +45,17 @@ public:
 template<typename T>
 using queue = Queue<T>; // can initialize objects like queue<T> obj, as opposed to Queue<T> obj
 
+template<typename T>
+void Queue<T>::replaceQueue(Queue& value)
+{
+	delete[] m_Queue;
+	m_Queue = nullptr;
+
+	m_Queue = new T[value.m_Size];
+	for (size_t i = 0; i < m_Count; i++)
+		m_Queue[i] = value.m_Queue[i];
+}
+
 // null constructor
 template<typename T>
 Queue<T>::Queue() : Queue(0) {}
@@ -191,13 +202,3 @@ bool Queue<T>::isEmpty()
 	return m_Queue == 0;
 }
 
-template<typename T>
-void Queue<T>::replaceQueue(Queue& value)
-{
-	delete[] m_Queue;
-	m_Queue = nullptr;
-
-	m_Queue = new T[value.m_Size];
-	for (size_t i = 0; i < m_Count; i++)
-		m_Queue[i] = value.m_Queue[i];
-}

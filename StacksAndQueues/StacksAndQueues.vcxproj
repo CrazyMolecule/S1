@@ -140,10 +140,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Kirill.cpp" />
     <ClCompile Include="Misha.cpp" />
+    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Element.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Converter.h" />
+    <ClInclude Include="Element.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
