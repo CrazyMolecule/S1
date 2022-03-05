@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LIST_H 
+#define LIST_H
+
 #include <iostream>
 
 template<typename T>
@@ -197,3 +199,5 @@ void List<T>::replaceList(List& value)
 	for (size_t i = 0; i < m_Count; i++)
 		m_List[i] = value.m_List[i];
 }
+
+#endif

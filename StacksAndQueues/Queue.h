@@ -1,4 +1,6 @@
-#pragma once
+#ifndef QUEUE_H 
+#define QUEUE_H
+
 #include "List.h"
 
 template<typename T>
@@ -35,3 +37,5 @@ public:
 
 template<typename T>
 using queue = Queue<T>; // can initialize objects like queue<T> obj, as opposed to Queue<T> obj
+
+#endif
