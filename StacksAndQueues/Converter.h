@@ -9,9 +9,9 @@
 class Converter
 {
 private:
-	queue<element> m_Infix;
-	stack<element> m_Buffer;
-	queue<element> m_Postfix;
+	queue<element> m_InfixQueue;
+	stack<element> m_Stack;
+	queue<element> m_PostfixQueue;
 
 	void setInfixQueue(std::string line);
 

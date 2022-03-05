@@ -2,7 +2,7 @@
 
 void Converter::setInfixQueue(std::string line)
 {
-	m_Infix = splitAndTransform(line);
+	m_InfixQueue = splitAndTransform(line);
 }
 
 queue<element> Converter::splitAndTransform(std::string line, char sep = ' ')
@@ -20,10 +20,10 @@ Converter::Converter(std::string& inputLine)
 
 Converter& Converter::toPostfix()
 {
-	if (!m_Infix.isEmpty())
+	if (!m_InfixQueue.isEmpty())
 	{
 		/*
-		* Convert from m_Infix to m_Postfix using m_Buffer
+		* Convert from InfixQueue to PostfixQueue using m_Stack
 		*/
 		return;
 	}
@@ -31,10 +31,10 @@ Converter& Converter::toPostfix()
 
 long long Converter::calculate()
 {
-	if (!m_Postfix.isEmpty())
+	if (!m_PostfixQueue.isEmpty())
 	{
 		/*
-		* Calc m_Postfix to long long
+		* Calc PostfixQueue to long long
 		*/
 		return;
 	}

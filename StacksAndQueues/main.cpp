@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     // Convert file lines from infix to postfix
     stack<long long> output;
     std::string line = "";
-    try 
+    try
     {
         while (getline(*input, line))
         {
