@@ -22,6 +22,13 @@ Element::Element(std::string value)
     }
 }
 
+Element::Element(char value)
+{
+    char* arr = new char[1];
+    arr[0] = value;
+    Element n(arr);
+}
+
 bool Element::isDigit()
 {
     for (char c : m_Value)

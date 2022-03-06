@@ -26,6 +26,7 @@ private:
 
 public:
     Element(std::string value);
+	Element(char value);
 
 	int getOperatorId();
 	Type getType();
