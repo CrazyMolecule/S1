@@ -5,6 +5,7 @@ void Converter::setInfixQueue(std::string line)
 	m_InfixQueue = splitAndTransform(line);
 }
 
+// "( 5 + 15 ) / ( 4 + 7 – 1 )" -> Queue{}
 queue<element> Converter::splitAndTransform(std::string line, char sep = ' ')
 {
 	/*
