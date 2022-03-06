@@ -5,7 +5,7 @@
 
 class Element
 {
-private:
+public:
 	enum Type
 	{
 		digit,
@@ -14,11 +14,11 @@ private:
 		operators
 	};
 
+private:
 	std::string m_Value = "";
 	Type m_Type;
 
     // METHODS - Check Type
-    int getOperatorId();
     bool isDigit();
     bool isOpenParenthesis();
     bool isCloseParenthesis();
@@ -26,6 +26,9 @@ private:
 
 public:
     Element(std::string value);
+
+	int getOperatorId();
+	Type getType();
 };
 using element = Element;
 

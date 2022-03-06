@@ -143,10 +143,12 @@
     <ClCompile Include="Misha.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Element.cpp" />
+    <ClCompile Include="Kikita.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converter.h" />
     <ClInclude Include="Element.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>

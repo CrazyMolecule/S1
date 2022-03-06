@@ -24,7 +24,8 @@ int main(int argc, char* argv[])
         fileInput.open(filename);
         input = &fileInput;
 
-        if (!fileInput.is_open()) {
+        if (!fileInput.is_open())
+        {
             std::cerr << "Ошибка: Файл ввода не открыт!";
             return -1;
         }

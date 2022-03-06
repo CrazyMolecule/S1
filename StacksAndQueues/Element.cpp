@@ -22,21 +22,6 @@ Element::Element(std::string value)
     }
 }
 
-int Element::getOperatorId()
-{
-    switch (m_Value[0])
-    {
-    case '*':
-    case '/':
-    case '%':
-        return 1;
-    case '+':
-    case '-':
-        return 0;
-    }
-    return -1;
-}
-
 bool Element::isDigit()
 {
     for (char c : m_Value)
@@ -60,4 +45,24 @@ bool Element::isCloseParenthesis()
 bool Element::isOperators()
 {
     return getOperatorId() != -1;
+}
+
+int Element::getOperatorId()
+{
+    switch (m_Value[0])
+    {
+    case '*':
+    case '/':
+    case '%':
+        return 1;
+    case '+':
+    case '-':
+        return 0;
+    }
+    return -1;
+}
+
+Element::Type Element::getType()
+{
+    return m_Type;
 }

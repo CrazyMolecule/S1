@@ -20,13 +20,41 @@ Converter::Converter(std::string& inputLine)
 
 Converter& Converter::toPostfix()
 {
-	if (!m_InfixQueue.isEmpty())
+	using type = element::Type;
+
+	while (!m_InfixQueue.isEmpty())
 	{
-		/*
-		* Convert from InfixQueue to PostfixQueue using m_Stack
-		*/
-		return;
+		element now = m_InfixQueue.pop();
+
+		switch (now.getType())
+		{
+		case type::openParenthesis:
+			m_Stack.push(now);
+			break;
+		case type::digit:
+			m_PostfixQueue.push(now);
+			break;
+		case type::closeParenthesis:
+			now = m_Stack.pop();
+			while (now.getType() != type::openParenthesis)
+			{
+				m_PostfixQueue.push(now);
+				if (m_Stack.getCount() == 0) 
+				{
+					throw "Error: Check the quantity of brackets!";
+				}
+				now = m_Stack.pop();
+			}
+			break;
+		case type::operators:
+			while ()
+			{
+
+			}
+			break;
+		}
 	}
+	return;
 }
 
 long long Converter::calculate()
