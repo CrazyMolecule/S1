@@ -11,7 +11,20 @@ public:
     using List<T>::m_Size;
     using List<T>::m_Count;
 
-    friend std::ostream& operator<<(std::ostream& out, const Queue<T>& value);
+    std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
+    {
+        out << "Queue(queue={";
+        for (size_t i = 0; i < value.m_Size; i++)
+        {
+            out << value.m_List[i];
+            if (i != value.m_Size - 1)
+                out << ", ";
+        }
+        out << "}";
+        out << ", count=" << value.m_Count << ", size=" << value.m_Size << ")";
+
+        return out;
+    };
 
     void push(T item);
     T pop();
@@ -19,22 +32,6 @@ public:
 
 template<typename T>
 using queue = Queue<T>;
-
-template<typename T>
-std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
-{
-    out << "Queue(queue={";
-    for (size_t i = 0; i < value.m_Size; i++)
-    {
-        out << value.m_List[i];
-        if (i != value.m_Size - 1)
-            out << ", ";
-    }
-    out << "}";
-    out << ", count=" << value.m_Count << ", size=" << value.m_Size << ")";
-
-    return out;
-}
 
 template<typename T>
 void Queue<T>::push(T item)
