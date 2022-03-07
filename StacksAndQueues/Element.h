@@ -18,16 +18,18 @@ private:
 	std::string m_Value = "";
 	Type m_Type;
 
-    // METHODS - Check Type
-    bool isDigit();
-    bool isOpenParenthesis();
-    bool isCloseParenthesis();
-    bool isOperators(); // is +/-/%/* or /
+	// METHODS - Check Type
+	bool isDigit();
+	bool isOpenParenthesis();
+	bool isCloseParenthesis();
+	bool isOperators(); // is +/-/%/* or /
 
 public:
-    Element(std::string);
+	Element(std::string);
 	Element(char);
-
+	Element() {
+		
+	}
 	int getOperatorId();
 	Type getType();
 	std::string getElement();

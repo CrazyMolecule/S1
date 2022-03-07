@@ -105,7 +105,7 @@ long long Element::calculate(long long a, long long b)
     return c;
 }
 
-explicit Element::operator long long() const
+Element::operator long long() const
 {
     if (m_Type != Type::digit)
         throw "Not correct transform";

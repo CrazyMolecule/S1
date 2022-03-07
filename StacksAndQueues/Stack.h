@@ -5,16 +5,17 @@ template <typename T>
 class Stack : public List<T>
 {
 private:
-	T m_Top;
+	
 
 public:
 	using List<T>::m_List;
 	using List<T>::m_Size;
 	using List<T>::m_Count;
+	using List<T>::List;
 
-	Stack() : List<T>() {}; // блин, я хз, что за какиш bruh
+	
 
-	friend std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
+	friend std::ostream& operator<<(std::ostream& out, const Stack<T>& value)
 	{
 		out << "Stack(stack={";
 		for (size_t i = 0; i < value.m_Size; i++)
@@ -52,29 +53,28 @@ void Stack<T>::push(T element)
 	tempStack[m_Count] = element;
 	m_Count++;
 	m_List = tempStack;
-	m_Top = m_List[m_Count - 1];
+	
 }
 
 template <typename T>
 T Stack<T>::pop()
 {
-	T* tempStack;
 
-	tempStack = new T[m_Size];
+	T* tempStack = new T[m_Size];
+	T peekedValue = peek();
 	m_Count--;
-	m_Top = m_List[m_Count];
-	for (int i = 0; i < m_Count; i++)
-		tempStack[i] = m_List[i];
+	for (int i = 1; i < m_Count+1; i++)
+		tempStack[i-1] = m_List[i];
 
 	m_List = tempStack;
-	return m_Top;
+	return peekedValue;
 }
 
 
 template <typename T>
 T Stack<T>::peek()
 {
-	return m_List[m_Count - 1];
+	return m_List[0];
 }
 
 

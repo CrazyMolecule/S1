@@ -2,11 +2,12 @@
 
 void Converter::setInfixQueue(std::string line)
 {
+
 	m_InfixQueue = splitAndTransform(line);
 }
 
 // "( 5 + 15 ) / ( 4 + 7 – 1 )" -> Queue{}
-queue<element> Converter::splitAndTransform(std::string line, char sep = ' ')
+queue<element> Converter::splitAndTransform(std::string line, char sep)
 {
 	queue<element> tempQueue;
 	int i = 0;
@@ -58,7 +59,7 @@ Converter& Converter::toPostfix()
 			while (now.getType() != type::openParenthesis)
 			{
 				m_PostfixQueue.push(now);
-				if (m_Stack.getCount() == 0) 
+				if (m_Stack.getCount() == 0)
 				{
 					throw "Error: Check the quantity of brackets!";
 				}
@@ -69,20 +70,20 @@ Converter& Converter::toPostfix()
 			now = m_InfixQueue.pop();
 			if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) { /*If priority of the operator that is taken from infix queue
 			is less or equal than the one that is on top of the stack, then push top element of stack to prefix queue*/
-			
+
 				m_PostfixQueue.push(m_Stack.pop());
 				m_Stack.push(now);
 
 			}
 			else {
-			
+
 				m_Stack.push(now);
-			
+
 			}
 			break;
 		}
 	}
-	return;
+	return *this;
 }
 
 long long Converter::calculate()
@@ -99,26 +100,26 @@ long long Converter::calculate()
 
 		m_PostfixQueue.reverse();
 
-		while (!m_PostfixQueue.isEmpty()) 
+		while (!m_PostfixQueue.isEmpty())
 		{
 			auto now = m_PostfixQueue.pop();
 
-			if (now.getType() == type::digit) 
+			if (now.getType() == type::digit)
 			{
 				long long nowDigit = static_cast<long long>(now);
 
 				out.push(nowDigit);
 			}
-			else if (now.getType() == type::operators) 
+			else if (now.getType() == type::operators)
 			{
 				long long b = out.pop();
 				long long a = out.pop();
 
-				if (now.getElement()[0] == '%') 
+				if (now.getElement()[0] == '%')
 				{
 					out.push(((a % b) + b) % b);
 				}
-				else 
+				else
 				{
 					out.push(now.calculate(a, b));
 				}

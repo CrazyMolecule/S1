@@ -14,11 +14,11 @@ int main(int argc, char* argv[])
     std::ifstream fileInput;
 
     // Open file or read from console
-    if (argc == 1) 
+    if (argc == 1)
     {
         input = &std::cin;
     }
-    else 
+    else
     {
         std::string filename = argv[1];
         fileInput.open(filename);
