@@ -7,7 +7,7 @@ template<typename T>
 class List
 {
 private:
-	void replaceList(List& value);
+	void replaceList(List&);
 
 protected:
 	T* m_List;
@@ -16,15 +16,15 @@ protected:
 
 public:
 	List();
-	List(int size);
-	List(List& value);
-	List(List&& value);
+	List(int);
+	List(List&);
+	List(List&&);
 	~List();
 
-	List& operator=(List& value);
-	List& operator=(List&& value);
-	bool operator==(List& other);
-	T operator[](int index);
+	List& operator=(List&);
+	List& operator=(List&&);
+	bool operator==(List&);
+	T operator[](int);
 
 	int getCount();
 	bool isEmpty();

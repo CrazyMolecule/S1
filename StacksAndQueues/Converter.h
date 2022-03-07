@@ -14,12 +14,12 @@ private:
 	stack<element> m_Stack;
 	queue<element> m_PostfixQueue;
 
-	void setInfixQueue(std::string line);
+	void setInfixQueue(std::string);
 
     // METHODS - toInfixQueue
-	queue<element> splitAndTransform(std::string line, char sep = ' ');
+	queue<element> splitAndTransform(std::string, char);
 public:
-	Converter(std::string& inputLine);
+	Converter(std::string&);
 
 	Converter& toPostfix();
 	long long calculate();

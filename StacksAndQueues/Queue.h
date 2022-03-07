@@ -26,7 +26,7 @@ public:
         return out;
     };
 
-    void push(T item);
+    void push(T);
     T pop();
 };
 

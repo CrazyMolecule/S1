@@ -12,7 +12,7 @@ private:
 public:
 	//Methods
 	
-	void push(T element);		// Push to top
+	void push(T);		// Push to top
 	T pop();					// Removes top element
 	T peek();					// Peek at top element
 };
