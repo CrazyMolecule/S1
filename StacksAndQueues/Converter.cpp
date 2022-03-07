@@ -8,10 +8,28 @@ void Converter::setInfixQueue(std::string line)
 // "( 5 + 15 ) / ( 4 + 7 Ц 1 )" -> Queue{}
 queue<element> Converter::splitAndTransform(std::string line, char sep = ' ')
 {
-	/*
-	* Split string
-	*/
-	return;
+	queue<element> tempQueue;
+	int i = 0;
+	int tokenCount = 0;
+	std::string token = "";
+	while (i < sizeof(line)) {
+
+		token[tokenCount] = line[i];
+		tokenCount++;
+		if (line[i] == sep) {
+			tempQueue.push(token);
+			token = "";
+		}
+		else {
+
+			continue;
+
+		}
+
+		i++;
+
+	}
+	return tempQueue;
 }
 
 Converter::Converter(std::string& inputLine)
@@ -65,6 +83,39 @@ long long Converter::calculate()
 		/*
 		* Calc PostfixQueue to long long
 		*/
-		return;
+
+		using type = element::Type;
+
+		stack<long long> out;
+
+		m_PostfixQueue.reverse();
+
+		while (!m_PostfixQueue.isEmpty()) 
+		{
+			auto now = m_PostfixQueue.pop();
+
+			if (now.getType() == type::digit) 
+			{
+				long long nowDigit = static_cast<long long>(now);
+
+				out.push(nowDigit);
+			}
+			else if (now.getType() == type::operators) 
+			{
+				long long b = out.pop();
+				long long a = out.pop();
+
+				if (now.getElement()[0] == '%') 
+				{
+					out.push(((a % b) + b) % b);
+				}
+				else 
+				{
+					out.push(now.calculate(a, b));
+				}
+			}
+		}
+
+		return out[0]; // тут € хз, надо последний или первый
 	}
 }

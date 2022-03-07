@@ -73,3 +73,47 @@ Element::Type Element::getType()
 {
     return m_Type;
 }
+
+std::string Element::getElement()
+{
+    return m_Value;
+}
+
+long long Element::calculate(long long a, long long b)
+{
+    long long c = 0;
+
+    switch (m_Value[0])
+    {
+    case '+':
+        c = a + b;
+        break;
+    case '-':
+        c = a - b;
+        break;
+    case '*':
+        c = a * b;
+        break;
+    case '/':
+        c = a / b;
+        break;
+    case '%':
+        c = a % b;
+        break;
+    }
+
+    return c;
+}
+
+explicit Element::operator long long() const
+{
+    if (m_Type != Type::digit)
+        throw "Not correct transform";
+
+    long long out = 0;
+
+    for (char c : m_Value)
+        out = out * 10 + (c - '0');
+
+    return out;
+}

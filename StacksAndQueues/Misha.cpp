@@ -578,8 +578,8 @@ public:
 
         output_.reverse();
 
-        while (!output_.isempty()) {
-
+        while (!output_.isempty()) 
+        {
             auto now = output_.pop();
 
             if (now.status == Atom::Status::digit) {

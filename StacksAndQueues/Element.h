@@ -30,6 +30,12 @@ public:
 
 	int getOperatorId();
 	Type getType();
+	std::string getElement();
+
+	long long calculate(long long a, long long b);
+
+	explicit operator long long() const;
+
 };
 using element = Element;
 

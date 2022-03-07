@@ -24,9 +24,11 @@ public:
 	List& operator=(List& value);
 	List& operator=(List&& value);
 	bool operator==(List& other);
+	T operator[](int index);
 
 	int getCount();
 	bool isEmpty();
+	void reverse();
 };
 
 template<typename T>
@@ -93,6 +95,12 @@ bool List<T>::operator==(List& other)
 }
 
 template<typename T>
+T List<T>::operator[](int index)
+{
+	return m_List[index];
+}
+
+template<typename T>
 int List<T>::getCount()
 {
 	return m_Size;
@@ -113,6 +121,14 @@ void List<T>::replaceList(List& value)
 	m_List = new T[value.m_Size];
 	for (size_t i = 0; i < m_Count; i++)
 		m_List[i] = value.m_List[i];
+}
+
+template<typename T>
+void List<T>::reverse()
+{
+	/*
+	* Reverse List
+	*/
 }
 
 #endif
