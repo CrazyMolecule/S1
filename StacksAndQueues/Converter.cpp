@@ -32,9 +32,9 @@ queue<element> Converter::splitAndTransform(std::string line, char sep = ' ')
 	return tempQueue;
 }
 
-Converter::Converter(std::string& inputLine)
+Converter::Converter(std::string& Line)
 {
-	setInfixQueue(inputLine); // fills in m_Infix field
+	setInfixQueue(Line); // fills in m_Infix field
 }
 
 Converter& Converter::toPostfix()
@@ -66,9 +66,18 @@ Converter& Converter::toPostfix()
 			}
 			break;
 		case type::operators:
-			while ()
-			{
+			now = m_InfixQueue.pop();
+			if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) { /*If priority of the operator that is taken from infix queue
+			is less or equal than the one that is on top of the stack, then push top element of stack to prefix queue*/
+			
+				m_PostfixQueue.push(m_Stack.pop());
+				m_Stack.push(now);
 
+			}
+			else {
+			
+				m_Stack.push(now);
+			
 			}
 			break;
 		}

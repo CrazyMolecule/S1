@@ -140,10 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Misha.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Element.cpp" />
-    <ClCompile Include="Kikita.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converter.h" />

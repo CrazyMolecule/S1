@@ -11,7 +11,7 @@ public:
     using List<T>::m_Size;
     using List<T>::m_Count;
 
-    std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
+    friend std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
     {
         out << "Queue(queue={";
         for (size_t i = 0; i < value.m_Size; i++)
