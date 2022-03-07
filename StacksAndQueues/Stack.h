@@ -6,15 +6,16 @@ template <typename T>
 class Stack : public List<T>
 {
 private:
-	
 	T m_Top;
 
 public:
-	//Methods
+	using List<T>::m_List;
+	using List<T>::m_Size;
+	using List<T>::m_Count;
 	
-	void push(T);		// Push to top
-	T pop();					// Removes top element
-	T peek();					// Peek at top element
+	void push(T);
+	T pop();
+	T peek();
 };
 
 
