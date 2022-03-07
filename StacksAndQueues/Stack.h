@@ -1,4 +1,3 @@
-
 #ifndef STACK_H 
 #define STACK_H
 
@@ -12,12 +11,28 @@ public:
 	using List<T>::m_List;
 	using List<T>::m_Size;
 	using List<T>::m_Count;
-	
+
+	Stack() : List<T>() {}; // блин, я хз, что за какиш bruh
+
+	std::ostream& operator<<(std::ostream& out, const Queue<T>& value)
+	{
+		out << "Stack(stack={";
+		for (size_t i = 0; i < value.m_Size; i++)
+		{
+			out << value.m_List[i];
+			if (i != value.m_Size - 1)
+				out << ", ";
+		}
+		out << "}";
+		out << ", count=" << value.m_Count << ", size=" << value.m_Size << ")";
+
+		return out;
+	};
+
 	void push(T);
 	T pop();
 	T peek();
 };
-
 
 template <typename T>
 void Stack<T>::push(T element)
