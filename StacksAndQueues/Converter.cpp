@@ -34,7 +34,6 @@ queue<element> Converter::splitAndTransform(std::string line, const char sep)
 	return tempQueue;
 }
 
-
 Converter::Converter(std::string& Line)
 {
 	setInfixQueue(Line); // fills in m_Infix field
