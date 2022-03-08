@@ -2,6 +2,7 @@
 
 Element::Element()
 {
+    m_Value = "";
     m_Type = Type::digit;
 }
 

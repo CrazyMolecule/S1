@@ -59,7 +59,7 @@ T Queue<T>::pop()
     if (m_Size != 0)
     {
         T* temporary;
-        T item = m_List[m_Size];
+        T item = m_List[m_Size - 1];
 
         m_Size--;
         if (m_Count != 0)
