@@ -1,5 +1,6 @@
 #include "Converter.h"
 
+
 void Converter::setInfixQueue(std::string line)
 {
 
@@ -10,12 +11,42 @@ void Converter::setInfixQueue(std::string line)
 queue<element> Converter::splitAndTransform(std::string line, const char sep)
 {
 	queue<element> tempQueue;
-	
-	
+	std::string token;
+	for (int i = 0; i < sizeof(line); i++) {
+
+		if ((line[i] == sep)) {
+		
+			continue;
+		
+		}
+
+		if ((line[i] == '(') || (line[i] == ')') ||
+			(line[i] == '+') || (line[i] == '-') ||
+			(line[i] == '*') || (line[i] == '%') ||
+			(line[i] == '/')) {
+
+			tempQueue.push(line[i]);
+
+
+		}
+
+		if (isdigit(line[i])) {
+			
+			token.push_back(line[i]);
+
+			if (line[i + 1] == sep) {
+				tempQueue.push(token);
+				token = "";
+				continue;
+			}
+			}
+		}
+
 	
 
 	return tempQueue;
 }
+
 
 Converter::Converter(std::string& Line)
 {
