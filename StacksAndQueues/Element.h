@@ -19,7 +19,7 @@ private:
 	Type m_Type;
 
 	// METHODS - Check Type
-	bool isDigit();
+	
 	bool isOpenParenthesis();
 	bool isCloseParenthesis();
 	bool isOperators(); // is +/-/%/* or /
@@ -34,6 +34,7 @@ public:
 	int getOperatorId();
 	Type getType();
 	std::string getElement();
+	bool isDigit();
 
 	long long calculate(long long, long long);
 

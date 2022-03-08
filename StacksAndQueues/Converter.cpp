@@ -11,38 +11,25 @@ void Converter::setInfixQueue(std::string line)
 queue<element> Converter::splitAndTransform(std::string line, const char sep)
 {
 	queue<element> tempQueue;
-	std::string token;
-	for (int i = 0; i < sizeof(line); i++) {
+	std::string temp = "";
 
-		if ((line[i] == sep)) {
-		
+	for (size_t i = 0; i < sizeof(line); i++)
+	{
+		element now = element(line[i]);
+
+		if (isdigit(line[i]) && isdigit(line[i + 1]))
+		{
+			temp += line[i];
 			continue;
-		
+		}
+		else if (isdigit(line[i]) && line[i + 1] == ' ')
+		{
+			now = element(temp);
+			temp = "";
 		}
 
-		if ((line[i] == '(') || (line[i] == ')') ||
-			(line[i] == '+') || (line[i] == '-') ||
-			(line[i] == '*') || (line[i] == '%') ||
-			(line[i] == '/')) {
-
-			tempQueue.push(line[i]);
-
-
-		}
-
-		if (isdigit(line[i])) {
-			
-			token.push_back(line[i]);
-
-			if (line[i + 1] == sep) {
-				tempQueue.push(token);
-				token = "";
-				continue;
-			}
-			}
-		}
-
-	
+		tempQueue.push(now);
+	}
 
 	return tempQueue;
 }
