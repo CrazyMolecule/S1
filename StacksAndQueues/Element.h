@@ -2,6 +2,7 @@
 #define ELEMENT_H
 
 #include <string>
+#include <iostream>
 
 class Element
 {
@@ -40,6 +41,14 @@ public:
 
 	explicit operator long long() const;
 	Element& operator=(const Element&);
+
+	friend std::ostream& operator<<(std::ostream& out, const Element& value)
+	{
+		out << "element(value=\"";
+		out << value.m_Value << "\")";
+
+		return out;
+	};
 
 };
 using element = Element;

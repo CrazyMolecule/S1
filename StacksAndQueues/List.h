@@ -109,7 +109,7 @@ int List<T>::getCount()
 template<typename T>
 bool List<T>::isEmpty()
 {
-	return m_List == 0;
+	return m_Count == 0;
 }
 
 template<typename T>

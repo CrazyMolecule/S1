@@ -2,6 +2,7 @@
 #define CONVERTER_H
 
 #include <string>
+#include <iostream>
 
 #include "Queue.h"
 #include "Stack.h"
