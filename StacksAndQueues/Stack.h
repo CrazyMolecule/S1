@@ -4,16 +4,11 @@
 template <typename T>
 class Stack : public List<T>
 {
-private:
-	
-
 public:
 	using List<T>::m_List;
 	using List<T>::m_Size;
 	using List<T>::m_Count;
 	using List<T>::List;
-
-	
 
 	friend std::ostream& operator<<(std::ostream& out, const Stack<T>& value)
 	{
