@@ -15,7 +15,7 @@ public:
 	};
 
 private:
-	std::string m_Value = "";
+	std::string m_Value;
 	Type m_Type;
 
 	// METHODS - Check Type
