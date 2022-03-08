@@ -7,29 +7,13 @@ void Converter::setInfixQueue(std::string line)
 }
 
 // "( 5 + 15 ) / ( 4 + 7 – 1 )" -> Queue{}
-queue<element> Converter::splitAndTransform(std::string line, char sep)
+queue<element> Converter::splitAndTransform(std::string line, const char sep)
 {
 	queue<element> tempQueue;
-	int i = 0;
-	int tokenCount = 0;
-	std::string token = "";
-	while (i < sizeof(line)) {
+	
+	
+	
 
-		token[tokenCount] = line[i];
-		tokenCount++;
-		if (line[i] == sep) {
-			tempQueue.push(token);
-			token = "";
-		}
-		else {
-
-			continue;
-
-		}
-
-		i++;
-
-	}
 	return tempQueue;
 }
 

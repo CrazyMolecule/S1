@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "ru");
-
+    
     std::istream* input;
     std::ifstream fileInput;
 
