@@ -63,10 +63,11 @@ T Stack<T>::pop()
 	T* tempStack = new T[m_Size];
 	T peekedValue = peek();
 	m_Count--;
-	for (int i = 1; i < m_Count+1; i++)
-		tempStack[i-1] = m_List[i];
+	for (int i = 0; i < m_Count; i++)
+		tempStack[i] = m_List[i];
 
 	m_List = tempStack;
+	delete[] tempStack;
 	return peekedValue;
 }
 
