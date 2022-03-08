@@ -1,5 +1,10 @@
 #include "Element.h"
 
+Element::Element()
+{
+    m_Type = Type::digit;
+}
+
 Element::Element(std::string value)
 {
     m_Value = value;
@@ -28,6 +33,17 @@ Element::Element(char value)
     arr[0] = value;
     Element n(arr);
 }
+
+Element::Element(const Element& value)
+{
+    m_Value = value.m_Value;
+    m_Type = value.m_Type;
+}
+
+//Element::Element(Element&& value) : m_Value(value.m_Value), m_Type(value.m_Type)
+//{
+//    value.m_Value = nullptr;
+//}
 
 bool Element::isDigit()
 {
@@ -116,4 +132,12 @@ Element::operator long long() const
         out = out * 10 + (c - '0');
 
     return out;
+}
+
+Element& Element::operator=(const Element& value)
+{
+    m_Value = value.m_Value;
+    m_Type = value.m_Type;
+
+    return *this;
 }

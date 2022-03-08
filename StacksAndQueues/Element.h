@@ -25,11 +25,12 @@ private:
 	bool isOperators(); // is +/-/%/* or /
 
 public:
+	Element();
 	Element(std::string);
 	Element(char);
-	Element() {
-		
-	}
+	Element(const Element&);
+	//Element(Element&&);
+
 	int getOperatorId();
 	Type getType();
 	std::string getElement();
@@ -37,6 +38,7 @@ public:
 	long long calculate(long long, long long);
 
 	explicit operator long long() const;
+	Element& operator=(const Element&);
 
 };
 using element = Element;
