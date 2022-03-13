@@ -640,7 +640,8 @@ int main(int argc, char* argv[]) {
 
     Stack<long long> output;
     try {
-        while (getline(*in, data)) {
+        while (getline(*in, data)) 
+        {
             if (data.empty())
                 continue;
 
@@ -648,7 +649,8 @@ int main(int argc, char* argv[]) {
             output.push(ar.calculate());
         }
     }
-    catch (const char* e) {
+    catch (const char* e) 
+    {
         std::cerr << "Error! " << e << std::endl;
         return 2;
     }

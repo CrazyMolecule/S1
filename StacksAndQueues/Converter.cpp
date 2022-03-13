@@ -111,7 +111,7 @@ long long Converter::calculate()
 
 		stack<long long> out;
 
-		m_PostfixQueue.reverse();
+		m_PostfixQueue.reverse(); // FIXIT: Вызвано исключение по адресу 0x5F1434B0 (vcruntime140.dll) в StacksAndQueues.exe: 0xC0000005: нарушение прав доступа при чтении по адресу 0x82763A0C.
 
 		while (!m_PostfixQueue.isEmpty())
 		{

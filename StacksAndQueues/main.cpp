@@ -42,15 +42,23 @@ int main(int argc, char* argv[])
                 continue;
 
             Converter convertible(line);
-            output.push(convertible.toPostfix().calculate());
+            long long postfixLine = convertible.toPostfix().calculate();
+            output.push(postfixLine);
+
+            std::cout << postfixLine;
         }
     }
     catch (const char* exception)
     {
-        std::cerr << "Ошибка: " << exception << std::endl;
+        std::cerr << exception << std::endl;
         return -1;
     }
 
+    // Input
+    while (!output.isEmpty())
+    {
+        std::cout << output.pop();
+    }
 
     fileInput.close();
 
