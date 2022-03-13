@@ -3,7 +3,6 @@
 
 void Converter::setInfixQueue(std::string line)
 {
-
 	m_InfixQueue = splitAndTransform(line);
 }
 
@@ -57,7 +56,7 @@ Converter& Converter::toPostfix()
 	while (!m_InfixQueue.isEmpty())
 	{
 		element now = m_InfixQueue.pop();
-
+		std::cout << m_InfixQueue << std::endl;
 		switch (now.getType())
 		{
 		case type::openParenthesis:
@@ -80,17 +79,19 @@ Converter& Converter::toPostfix()
 			break;
 		case type::operators:
 			now = m_InfixQueue.pop();
-			if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) { /*If priority of the operator that is taken from infix queue
-			is less or equal than the one that is on top of the stack, then push top element of stack to prefix queue*/
 
+			if (m_Stack.isEmpty())
+			{
+				m_Stack.push(now);
+			}
+			else if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) // сделать через while - может идти несколько операторов сразу
+			{
 				m_PostfixQueue.push(m_Stack.pop());
 				m_Stack.push(now);
-
 			}
-			else {
-
+			else
+			{
 				m_Stack.push(now);
-
 			}
 			break;
 		}
@@ -110,7 +111,7 @@ long long Converter::calculate()
 
 		stack<long long> out;
 
-		m_PostfixQueue.reverse();
+		m_PostfixQueue.reverse(); // FIXIT: ¬ызвано исключение по адресу 0x5F1434B0 (vcruntime140.dll) в StacksAndQueues.exe: 0xC0000005: нарушение прав доступа при чтении по адресу 0x82763A0C.
 
 		while (!m_PostfixQueue.isEmpty())
 		{

@@ -29,6 +29,8 @@ public:
 	int getCount();
 	bool isEmpty();
 	void reverse();
+
+	T* getData();
 };
 
 template<typename T>
@@ -54,7 +56,7 @@ List<T>::List(List&& value) : m_List(value.m_List), m_Size(value.m_Size), m_Coun
 template<typename T>
 List<T>::~List()
 {
-	delete m_List;
+	delete[] m_List;
 }
 
 template<typename T>
@@ -109,7 +111,7 @@ int List<T>::getCount()
 template<typename T>
 bool List<T>::isEmpty()
 {
-	return m_List == 0;
+	return m_Count == 0;
 }
 
 template<typename T>
@@ -130,6 +132,12 @@ void List<T>::reverse()
 
 	for (size_t i = 0; i < m_Size; i++)
 		m_List[i] = tempList[m_Size - i];	
+}
+
+template<typename T>
+T* List<T>::getData()
+{
+	return m_List;
 }
 
 #endif
