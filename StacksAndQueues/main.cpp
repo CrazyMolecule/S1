@@ -45,9 +45,9 @@ int main(int argc, char* argv[])
             output.push(convertible.toPostfix().calculate());
         }
     }
-    catch (const char* exeption)
+    catch (const char* exception)
     {
-        std::cerr << "Ошибка: " << exeption << std::endl;
+        std::cerr << "Ошибка: " << exception << std::endl;
         return -1;
     }
 

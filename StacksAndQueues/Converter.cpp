@@ -79,19 +79,19 @@ Converter& Converter::toPostfix()
 			break;
 		case type::operators:
 			now = m_InfixQueue.pop();
-			if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) // сделать через while - может идти несколько операторов сразу
-			{ /*If priority of the operator that is taken from infix queue
-			is less or equal than the one that is on top of the stack, then push top element of stack to prefix queue*/
 
+			if (m_Stack.isEmpty())
+			{
+				m_Stack.push(now);
+			}
+			else if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) // сделать через while - может идти несколько операторов сразу
+			{
 				m_PostfixQueue.push(m_Stack.pop());
 				m_Stack.push(now);
-
 			}
-			else 
+			else
 			{
-
 				m_Stack.push(now);
-
 			}
 			break;
 		}
