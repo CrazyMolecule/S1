@@ -45,6 +45,7 @@ void Stack<T>::push(T element)
 
 	for (int i = 0; i < m_Count; i++)
 		tempStack[i] = m_List[i];
+	
 	tempStack[m_Count] = element;
 	m_Count++;
 	m_List = tempStack;
