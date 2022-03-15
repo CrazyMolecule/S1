@@ -70,7 +70,7 @@ T Stack<T>::pop()
 template <typename T>
 T Stack<T>::peek()
 {
-	return m_List[0];
+	return m_List[m_Count];
 }
 
 

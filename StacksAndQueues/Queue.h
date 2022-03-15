@@ -46,8 +46,8 @@ void Queue<T>::push(T item)
         temporary = new T[m_Size];
 
     for (size_t i = 0; i < m_Count; i++)
-        temporary[i + 1] = m_List[i];
-    temporary[0] = item;
+        temporary[i] = m_List[i];
+    temporary[m_Count] = item;
     m_Count++;
 
     m_List = temporary;
@@ -59,15 +59,15 @@ T Queue<T>::pop()
     if (m_Size != 0)
     {
         T* temporary;
-        T item = m_List[m_Size - 1];
+        T item = m_List[0];
 
         m_Size--;
         if (m_Count != 0)
             m_Count--;
         temporary = new T[m_Size];
 
-        for (size_t i = 0; i < m_Size; i++)
-            temporary[i] = m_List[i];
+        for (size_t i = 1; i < m_Size + 1; i++)
+            temporary[i - 1] = m_List[i];
 
         m_List = temporary;
         return item;
