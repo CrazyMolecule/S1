@@ -55,18 +55,23 @@ void Stack<T>::push(T element)
 template <typename T>
 T Stack<T>::pop()
 {
+	if (m_Size != 0)
+	{
+		T* temporary;
+		T item = m_List[m_Count - 1];
 
-	T* tempStack = new T[m_Size];
-	T peekedValue = peek();
-	m_Count--;
-	for (int i = 0; i < m_Count; i++)
-		tempStack[i] = m_List[i];
+		m_Size--;
+		if (m_Count != 0)
+			m_Count--;
+		temporary = new T[m_Size];
 
-	m_List = tempStack;
-	delete[] tempStack;
-	return peekedValue;
+		for (size_t i = 0; i < m_Size; i++)
+			temporary[i] = m_List[i];
+
+		m_List = temporary;
+		return item;
+	}
 }
-
 
 template <typename T>
 T Stack<T>::peek()

@@ -10,6 +10,24 @@ int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "ru");
     
+    stack <int> Stackeroo;
+    Stackeroo.push(2);
+    Stackeroo.push(3);
+    Stackeroo.push(6);
+    Stackeroo.push(7);
+    Stackeroo.push(9);
+    std::cout << Stackeroo << std::endl;
+    Stackeroo.pop();
+    std::cout << Stackeroo << std::endl;
+    Stackeroo.pop();
+    std::cout << Stackeroo << std::endl;
+    Stackeroo.pop();
+    std::cout << Stackeroo << std::endl;
+    Stackeroo.pop();
+    std::cout << Stackeroo << std::endl;
+    Stackeroo.pop();
+    std::cout << Stackeroo << std::endl;
+
     std::istream* input;
     std::ifstream fileInput;
 
@@ -41,6 +59,7 @@ int main(int argc, char* argv[])
             if (line.empty())
                 continue;
 
+            line = "( 2 + 3 )";
             Converter convertible(line);
             long long postfixLine = convertible.toPostfix().calculate();
             output.push(postfixLine);

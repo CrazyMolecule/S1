@@ -91,7 +91,11 @@ Converter& Converter::toPostfix()
 				{
 					throw "Error: Check the quantity of brackets!";
 				}
+
+				std::cout << "m_Stack RIGHT NOWWWW: " << m_Stack << std::endl;
 				now = m_Stack.pop();
+
+				
 			}
 			std::cout << "closeParenthesis \n{" << std::endl;
 			std::cout << "(now " << now << ")" << std::endl;
