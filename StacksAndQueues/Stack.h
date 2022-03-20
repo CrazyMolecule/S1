@@ -76,9 +76,8 @@ T Stack<T>::pop()
 template <typename T>
 T Stack<T>::peek()
 {
-	return m_List[m_Count];
+	return m_List[m_Count - 1];
 }
-
 
 template <typename T>
 using stack = Stack<T>; // can initialize objects like queue<T> obj, as opposed to Queue<T> obj

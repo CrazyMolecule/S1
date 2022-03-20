@@ -44,8 +44,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& out, const Element& value)
 	{
-		out << "element(value=\"";
-		out << value.m_Value << "\")";
+		out << value.m_Value;
 
 		return out;
 	};

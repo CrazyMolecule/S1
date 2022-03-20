@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
             if (line.empty())
                 continue;
 
-            line = "( 2 + 3 )";
+            line = "(3 + 5) / 5 - 8 * 3";
             Converter convertible(line);
             long long postfixLine = convertible.toPostfix().calculate();
             output.push(postfixLine);
