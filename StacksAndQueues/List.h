@@ -128,10 +128,17 @@ void List<T>::replaceList(List& value)
 template<typename T>
 void List<T>::reverse()
 {
-	T* tempList = m_List;
+	T* tempList = new T[m_Size];
 
 	for (size_t i = 0; i < m_Size; i++)
-		m_List[i] = tempList[m_Size - i];	
+	{
+		tempList[i] = m_List[i];
+	}
+
+	for (size_t i = 0; i < m_Size; i++)
+		m_List[i] = tempList[m_Size - 1 - i];
+
+	delete[] tempList;
 }
 
 template<typename T>

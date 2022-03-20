@@ -10,24 +10,6 @@ int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "ru");
     
-    stack <int> Stackeroo;
-    Stackeroo.push(2);
-    Stackeroo.push(3);
-    Stackeroo.push(6);
-    Stackeroo.push(7);
-    Stackeroo.push(9);
-    std::cout << Stackeroo << std::endl;
-    Stackeroo.pop();
-    std::cout << Stackeroo << std::endl;
-    Stackeroo.pop();
-    std::cout << Stackeroo << std::endl;
-    Stackeroo.pop();
-    std::cout << Stackeroo << std::endl;
-    Stackeroo.pop();
-    std::cout << Stackeroo << std::endl;
-    Stackeroo.pop();
-    std::cout << Stackeroo << std::endl;
-
     std::istream* input;
     std::ifstream fileInput;
 
@@ -59,12 +41,9 @@ int main(int argc, char* argv[])
             if (line.empty())
                 continue;
 
-            line = "(3 + 5) / 5 - 8 * 3 + (8 * 30 + 10 * (7 * 2 - 10) * 30)";
             Converter convertible(line);
             long long postfixLine = convertible.toPostfix().calculate();
             output.push(postfixLine);
-
-            std::cout << postfixLine;
         }
     }
     catch (const char* exception)
@@ -77,6 +56,9 @@ int main(int argc, char* argv[])
     while (!output.isEmpty())
     {
         std::cout << output.pop();
+
+        if (!output.isEmpty())
+            std::cout << ' ';
     }
 
     fileInput.close();

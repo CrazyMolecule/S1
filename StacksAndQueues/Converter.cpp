@@ -53,12 +53,6 @@ Converter& Converter::toPostfix()
 {
 	using type = element::Type;
 
-	std::cout << "НАЧАЛО \n{" << std::endl;
-	std::cout << "m_InfixQueue: " << m_InfixQueue << std::endl;
-	std::cout << "m_PostfixQueue: " << m_PostfixQueue << std::endl;
-	std::cout << "m_Stack: " << m_Stack << std::endl;
-	std::cout << "}" << std::endl;
-
 	while (!m_InfixQueue.isEmpty())
 	{
 		element now = m_InfixQueue.pop();
@@ -66,21 +60,9 @@ Converter& Converter::toPostfix()
 		{
 		case type::openParenthesis:
 			m_Stack.push(now);
-			std::cout << "openParenthesis \n{" << std::endl;
-			std::cout << "(now " << now << ")" << std::endl;
-			std::cout << "m_InfixQueue: " << m_InfixQueue << std::endl;
-			std::cout << "m_PostfixQueue: " << m_PostfixQueue << std::endl;
-			std::cout << "m_Stack: " << m_Stack << std::endl;
-			std::cout << "}" << std::endl;
 			break;
 		case type::digit:
 			m_PostfixQueue.push(now);
-			std::cout << "digit \n{" << std::endl;
-			std::cout << "(now " << now << ")" << std::endl;
-			std::cout << "m_InfixQueue: " << m_InfixQueue << std::endl;
-			std::cout << "m_PostfixQueue: " << m_PostfixQueue << std::endl;
-			std::cout << "m_Stack: " << m_Stack << std::endl;
-			std::cout << "}" << std::endl;
 			break;
 		case type::closeParenthesis:
 			now = m_Stack.pop();
@@ -91,17 +73,8 @@ Converter& Converter::toPostfix()
 				{
 					throw "Error: Check the quantity of brackets!";
 				}
-
-				std::cout << "m_Stack RIGHT NOWWWW: " << m_Stack << std::endl;
 				now = m_Stack.pop();
-				
 			}
-			std::cout << "closeParenthesis \n{" << std::endl;
-			std::cout << "(now " << now << ")" << std::endl;
-			std::cout << "m_InfixQueue: " << m_InfixQueue << std::endl;
-			std::cout << "m_PostfixQueue: " << m_PostfixQueue << std::endl;
-			std::cout << "m_Stack: " << m_Stack << std::endl;
-			std::cout << "}" << std::endl;
 			break;
 		case type::operators:
 			if (m_Stack.isEmpty())
@@ -122,13 +95,6 @@ Converter& Converter::toPostfix()
 			{
 				m_Stack.push(now);
 			}
-
-			std::cout << "operators \n{" << std::endl;
-			std::cout << "(now " << now << ")" << std::endl;
-			std::cout << "m_InfixQueue: " << m_InfixQueue << std::endl;
-			std::cout << "m_PostfixQueue: " << m_PostfixQueue << std::endl;
-			std::cout << "m_Stack: " << m_Stack << std::endl;
-			std::cout << "}" << std::endl;
 			break;
 		}
 
@@ -139,11 +105,7 @@ Converter& Converter::toPostfix()
 				m_PostfixQueue.push(m_Stack.pop());
 			}
 		}
-		std::cout << "[!!!] Прошла итерация " << std::endl;
 	}
-
-	std::cout << "Вот чо получилось: " << m_PostfixQueue << std::endl;
-
 	return *this;
 }
 
@@ -154,8 +116,6 @@ long long Converter::calculate()
 		using type = element::Type;
 
 		stack<long long> out;
-
-		m_PostfixQueue.reverse(); // FIXIT: Вызвано исключение по адресу 0x5F1434B0 (vcruntime140.dll) в StacksAndQueues.exe: 0xC0000005: нарушение прав доступа при чтении по адресу 0x82763A0C.
 
 		while (!m_PostfixQueue.isEmpty())
 		{
