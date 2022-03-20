@@ -108,10 +108,15 @@ Converter& Converter::toPostfix()
 			{
 				m_Stack.push(now);
 			}
-			else if (now.getOperatorId() <= m_Stack.peek().getOperatorId()) // FIXIT: сделать через while - может идти несколько операторов сразу
+			else if (now.getOperatorId() <= m_Stack.peek().getOperatorId())
 			{
-				m_PostfixQueue.push(m_Stack.pop());
-				m_Stack.push(now);
+				while (m_Stack.peek().getOperatorId() > -1)
+				{
+					m_PostfixQueue.push(m_Stack.pop());
+					m_Stack.push(now);
+					if (m_Stack.isEmpty()) // Выход из цикла заранее, чтобы не крашилось - m_Stack.peek() returns 0
+						break;
+				}
 			}
 			else
 			{
