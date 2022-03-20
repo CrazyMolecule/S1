@@ -113,10 +113,10 @@ Converter& Converter::toPostfix()
 				while (m_Stack.peek().getOperatorId() > -1)
 				{
 					m_PostfixQueue.push(m_Stack.pop());
-					m_Stack.push(now);
 					if (m_Stack.isEmpty()) // ¬ыход из цикла заранее, чтобы не крашилось - m_Stack.peek() returns 0
 						break;
 				}
+				m_Stack.push(now);
 			}
 			else
 			{
