@@ -1,148 +1,148 @@
 #include "Converter.h"
 
-
-void Converter::setInfixQueue(std::string line)
+namespace bavykin
 {
-	m_InfixQueue = splitAndTransform(line);
-}
-
-// "( 5 + 15 ) / ( 4 + 7 – 1 )" -> Queue{}
-queue<element> Converter::splitAndTransform(std::string line, const char sep)
-{
-	queue<element> tempQueue;
-
-	std::string temp = "";
-	int i = 0;
-
-	while (i < line.size())
+	void Converter::setInfixQueue(std::string line)
 	{
-		temp = "";
-
-		if (line[i] == ' ')
-		{
-			i++;
-			continue;
-		}
-		else if (!std::isdigit(line[i]))
-		{
-			temp = line[i];
-			i++;
-		}
-		else
-		{
-			while (std::isdigit(line[i]))
-			{
-				temp += line[i];
-				i++;
-			}
-		}
-
-		element now = element(temp);
-		tempQueue.push(now);
+		m_InfixQueue = splitAndTransform(line);
 	}
 
-	return tempQueue;
-}
-
-Converter::Converter(std::string& Line)
-{
-	setInfixQueue(Line); // fills in m_Infix field
-}
-
-Converter& Converter::toPostfix()
-{
-	using type = element::Type;
-
-	while (!m_InfixQueue.isEmpty())
+	queue<element> Converter::splitAndTransform(std::string line, const char sep)
 	{
-		element now = m_InfixQueue.pop();
-		switch (now.getType())
+		queue<element> tempQueue;
+
+		std::string temp = "";
+		int i = 0;
+
+		while (i < line.size())
 		{
-		case type::openParenthesis:
-			m_Stack.push(now);
-			break;
-		case type::digit:
-			m_PostfixQueue.push(now);
-			break;
-		case type::closeParenthesis:
-			now = m_Stack.pop();
-			while (now.getType() != type::openParenthesis)
+			temp = "";
+
+			if (line[i] == ' ')
 			{
-				m_PostfixQueue.push(now);
-				if (m_Stack.getCount() == 0)
-				{
-					throw "Error: Check the quantity of brackets!";
-				}
-				now = m_Stack.pop();
+				i++;
+				continue;
 			}
-			break;
-		case type::operators:
-			if (m_Stack.isEmpty())
+			else if (!std::isdigit(line[i]))
 			{
-				m_Stack.push(now);
-			}
-			else if (now.getOperatorId() <= m_Stack.peek().getOperatorId())
-			{
-				while (now.getOperatorId() <= m_Stack.peek().getOperatorId())
-				{
-					m_PostfixQueue.push(m_Stack.pop());
-					if (m_Stack.isEmpty()) // Выход из цикла заранее, чтобы не крашилось - m_Stack.peek() returns 0
-						break;
-				}
-				m_Stack.push(now);
+				temp = line[i];
+				i++;
 			}
 			else
 			{
-				m_Stack.push(now);
+				while (std::isdigit(line[i]))
+				{
+					temp += line[i];
+					i++;
+				}
 			}
-			break;
+
+			element now = element(temp);
+			tempQueue.push(now);
 		}
 
-		if (m_InfixQueue.isEmpty()) // Выталкивание под конец
-		{
-			while (!m_Stack.isEmpty())
-			{
-				m_PostfixQueue.push(m_Stack.pop());
-			}
-		}
+		return tempQueue;
 	}
-	return *this;
-}
 
-long long Converter::calculate()
-{
-	if (!m_PostfixQueue.isEmpty())
+	Converter::Converter(std::string& Line)
+	{
+		setInfixQueue(Line); // fills in m_Infix field
+	}
+
+	Converter& Converter::toPostfix()
 	{
 		using type = element::Type;
 
-		stack<long long> out;
-
-		while (!m_PostfixQueue.isEmpty())
+		while (!m_InfixQueue.isEmpty())
 		{
-			auto now = m_PostfixQueue.pop();
-
-			if (now.getType() == type::digit)
+			element now = m_InfixQueue.pop();
+			switch (now.getType())
 			{
-				long long nowDigit = static_cast<long long>(now);
-
-				out.push(nowDigit);
-			}
-			else if (now.getType() == type::operators)
-			{
-				long long b = out.pop();
-				long long a = out.pop();
-
-				if (now.getElement()[0] == '%')
+			case type::openParenthesis:
+				m_Stack.push(now);
+				break;
+			case type::digit:
+				m_PostfixQueue.push(now);
+				break;
+			case type::closeParenthesis:
+				now = m_Stack.pop();
+				while (now.getType() != type::openParenthesis)
 				{
-					out.push(((a % b) + b) % b);
+					m_PostfixQueue.push(now);
+					if (m_Stack.getCount() == 0)
+					{
+						throw "Error: Check the quantity of brackets!";
+					}
+					now = m_Stack.pop();
+				}
+				break;
+			case type::operators:
+				if (m_Stack.isEmpty())
+				{
+					m_Stack.push(now);
+				}
+				else if (now.getOperatorId() <= m_Stack.peek().getOperatorId())
+				{
+					while (now.getOperatorId() <= m_Stack.peek().getOperatorId())
+					{
+						m_PostfixQueue.push(m_Stack.pop());
+						if (m_Stack.isEmpty()) // Выход из цикла заранее, чтобы не крашилось - m_Stack.peek() returns 0
+							break;
+					}
+					m_Stack.push(now);
 				}
 				else
 				{
-					out.push(now.calculate(a, b));
+					m_Stack.push(now);
+				}
+				break;
+			}
+
+			if (m_InfixQueue.isEmpty()) // Выталкивание под конец
+			{
+				while (!m_Stack.isEmpty())
+				{
+					m_PostfixQueue.push(m_Stack.pop());
 				}
 			}
 		}
+		return *this;
+	}
 
-		return out[0]; // тут я хз, надо последний или первый
+	long long Converter::calculate()
+	{
+		if (!m_PostfixQueue.isEmpty())
+		{
+			using type = element::Type;
+
+			stack<long long> out;
+
+			while (!m_PostfixQueue.isEmpty())
+			{
+				auto now = m_PostfixQueue.pop();
+
+				if (now.getType() == type::digit)
+				{
+					long long nowDigit = static_cast<long long>(now);
+
+					out.push(nowDigit);
+				}
+				else if (now.getType() == type::operators)
+				{
+					long long b = out.pop();
+					long long a = out.pop();
+
+					if (now.getElement()[0] == '%')
+					{
+						out.push(((a % b) + b) % b);
+					}
+					else
+					{
+						out.push(now.calculate(a, b));
+					}
+				}
+			}
+			return out[0];
+		}
 	}
 }

@@ -6,6 +6,8 @@
 #include "Stack.h"
 #include "Converter.h"
 
+using namespace bavykin;
+
 int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "ru");
@@ -13,7 +15,6 @@ int main(int argc, char* argv[])
     std::istream* input;
     std::ifstream fileInput;
 
-    // Open file or read from console
     if (argc == 1)
     {
         input = &std::cin;
@@ -31,7 +32,6 @@ int main(int argc, char* argv[])
         }
     }
 
-    // Convert file lines from infix to postfix
     stack<long long> output;
     std::string line = "";
     try
@@ -44,6 +44,8 @@ int main(int argc, char* argv[])
             Converter convertible(line);
             long long postfixLine = convertible.toPostfix().calculate();
             output.push(postfixLine);
+
+            std::cout << postfixLine << std::endl;
         }
     }
     catch (const char* exception)
@@ -52,7 +54,6 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    // Input
     while (!output.isEmpty())
     {
         std::cout << output.pop();
