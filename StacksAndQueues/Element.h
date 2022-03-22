@@ -20,18 +20,15 @@ namespace bavykin
 		std::string m_Value;
 		Type m_Type;
 
-		// METHODS - Check Type
-
 		bool isOpenParenthesis();
 		bool isCloseParenthesis();
-		bool isOperators(); // is +/-/%/* or /
+		bool isOperators();
 
 	public:
 		Element();
 		Element(std::string);
 		Element(char);
 		Element(const Element&);
-		//Element(Element&&);
 
 		int getOperatorId();
 		Type getType();

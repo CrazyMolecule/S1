@@ -39,7 +39,9 @@ int main(int argc, char* argv[])
         while (getline(*input, line))
         {
             if (line.empty())
+            {
                 continue;
+            }
 
             Converter convertible(line);
             long long postfixLine = convertible.toPostfix().calculate();

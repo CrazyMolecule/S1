@@ -71,7 +71,7 @@ namespace bavykin
 					m_PostfixQueue.push(now);
 					if (m_Stack.getCount() == 0)
 					{
-						throw "Error: Check the quantity of brackets!";
+						throw "Check the quantity of brackets!";
 					}
 					now = m_Stack.pop();
 				}

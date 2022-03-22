@@ -43,17 +43,14 @@ namespace bavykin
         m_Type = value.m_Type;
     }
 
-    //Element::Element(Element&& value) : m_Value(value.m_Value), m_Type(value.m_Type)
-    //{
-    //    value.m_Value = nullptr;
-    //}
-
     bool Element::isDigit()
     {
         for (char c : m_Value)
         {
             if (!std::isdigit(c))
+            {
                 return false;
+            }
         }
         return true;
     }
@@ -132,7 +129,9 @@ namespace bavykin
         long long out = 0;
 
         for (char c : m_Value)
+        {
             out = out * 10 + (c - '0');
+        }           
 
         return out;
     }

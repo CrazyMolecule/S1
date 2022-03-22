@@ -44,10 +44,14 @@ namespace bavykin
 			m_Size++;
 		}
 		else
+		{
 			tempStack = new T[m_Size];
+		}
 
 		for (int i = 0; i < m_Count; i++)
+		{
 			tempStack[i] = m_List[i];
+		}
 
 		tempStack[m_Count] = element;
 		m_Count++;
@@ -60,20 +64,26 @@ namespace bavykin
 	{
 		if (m_Size != 0)
 		{
-			T* temporary;
-			T item = m_List[m_Count - 1];
-
-			m_Size--;
-			if (m_Count != 0)
-				m_Count--;
-			temporary = new T[m_Size];
-
-			for (size_t i = 0; i < m_Size; i++)
-				temporary[i] = m_List[i];
-
-			m_List = temporary;
-			return item;
+			throw std::logic_error("The queue is empty!");
 		}
+
+		T* temporary;
+		T item = m_List[m_Count - 1];
+
+		m_Size--;
+		if (m_Count != 0)
+		{
+			m_Count--;
+		}
+		temporary = new T[m_Size];
+
+		for (size_t i = 0; i < m_Size; i++)
+		{
+			temporary[i] = m_List[i];
+		}
+
+		m_List = temporary;
+		return item;
 	}
 
 	template <typename T>

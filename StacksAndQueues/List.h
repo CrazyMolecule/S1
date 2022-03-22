@@ -8,40 +8,45 @@ namespace bavykin
 	class List
 	{
 	private:
-		void replaceList(List&);
+		void replaceList(List&) noexcept;
 
 	protected:
 		T* m_List;
 		int m_Size;
-		int m_Count = 0;
+		int m_Count;
 
 	public:
 		List();
 		List(int);
-		List(List&);
+		List(List&) noexcept;
 		List(List&&);
-		~List();
+		~List() noexcept;
 
-		List& operator=(List&);
+		List& operator=(List&) noexcept;
 		List& operator=(List&&);
-		bool operator==(List&);
 		T operator[](int);
 
-		int getCount();
-		bool isEmpty();
-		void reverse();
-
-		T* getData();
+		int getCount() noexcept;
+		bool isEmpty() noexcept;
 	};
 
 	template<typename T>
 	List<T>::List() : List(0) {}
 
 	template<typename T>
-	List<T>::List(int size) : m_List(new T[size]), m_Size(size) {}
+	List<T>::List(int size)
+	{
+		if (size < 0)
+		{
+			throw std::length_error("List size out of range");
+		}
+		m_List = new T[size];
+		m_Size = size;
+		m_Count = 0;
+	}
 
 	template<typename T>
-	List<T>::List(List& value) : m_Size(value.m_Size), m_Count(value.m_Count)
+	List<T>::List(List& value) noexcept : m_Size(value.m_Size), m_Count(value.m_Count)
 	{
 		replaceList(value);
 	}
@@ -55,13 +60,13 @@ namespace bavykin
 	}
 
 	template<typename T>
-	List<T>::~List()
+	List<T>::~List() noexcept
 	{
 		delete[] m_List;
 	}
 
 	template<typename T>
-	List<T>& List<T>::operator=(List& value)
+	List<T>& List<T>::operator=(List& value) noexcept
 	{
 		replaceList(value);
 
@@ -85,66 +90,38 @@ namespace bavykin
 	}
 
 	template<typename T>
-	bool List<T>::operator==(List& other)
-	{
-		if (m_Count == other.m_Count && m_Size == other.m_Size)
-		{
-			for (size_t i = 0; i < m_Count; i++)
-				if (m_List[i] != other.m_List[i])
-					return 0;
-			return 1;
-		}
-		return 0;
-	}
-
-	template<typename T>
 	T List<T>::operator[](int index)
 	{
+		if (index < 0 or index >= m_Size)
+		{
+			throw std::length_error("List size out of range");
+		}
+			
 		return m_List[index];
 	}
 
 	template<typename T>
-	int List<T>::getCount()
+	int List<T>::getCount() noexcept
 	{
 		return m_Size;
 	}
 
 	template<typename T>
-	bool List<T>::isEmpty()
+	bool List<T>::isEmpty() noexcept
 	{
 		return m_Count == 0;
 	}
 
 	template<typename T>
-	void List<T>::replaceList(List& value)
+	void List<T>::replaceList(List& value) noexcept
 	{
 		delete[] m_List;
 		m_List = nullptr;
 
 		m_List = new T[value.m_Size];
 		for (size_t i = 0; i < m_Count; i++)
-			m_List[i] = value.m_List[i];
-	}
-
-	template<typename T>
-	void List<T>::reverse()
-	{
-		T* tempList = new T[m_Size];
-
-		for (size_t i = 0; i < m_Size; i++)
 		{
-			tempList[i] = m_List[i];
+			m_List[i] = value.m_List[i];
 		}
-
-		for (size_t i = 0; i < m_Size; i++)
-			m_List[i] = tempList[m_Size - 1 - i];
-
-		delete[] tempList;
-	}
-
-	template<typename T>
-	T* List<T>::getData()
-	{
-		return m_List;
 	}
 }

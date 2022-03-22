@@ -18,7 +18,6 @@ namespace bavykin
 
 		void setInfixQueue(std::string);
 
-		// METHODS - toInfixQueue
 		queue<element> splitAndTransform(std::string, const char = ' ');
 	public:
 		Converter(std::string&);

@@ -27,12 +27,12 @@ namespace bavykin
             return out;
         };
 
-        void push(T);
+        void push(T) noexcept;
         T pop();
     };
 
     template<typename T>
-    void Queue<T>::push(T item)
+    void Queue<T>::push(T item) noexcept
     {
         T* temporary;
         if (m_Count == m_Size)
@@ -41,10 +41,14 @@ namespace bavykin
             m_Size++;
         }
         else
+        {
             temporary = new T[m_Size];
+        }
 
         for (size_t i = 0; i < m_Count; i++)
+        {
             temporary[i] = m_List[i];
+        }
         temporary[m_Count] = item;
         m_Count++;
 
@@ -56,22 +60,26 @@ namespace bavykin
     {
         if (m_Size != 0)
         {
-            T* temporary;
-            T item = m_List[0];
-
-            m_Size--;
-            if (m_Count != 0)
-                m_Count--;
-            temporary = new T[m_Size];
-
-            for (size_t i = 1; i < m_Size + 1; i++)
-                temporary[i - 1] = m_List[i];
-
-            m_List = temporary;
-            return item;
+            throw std::logic_error("The queue is empty!");
         }
-        else
-            throw;
+
+        T* temporary;
+        T item = m_List[0];
+
+        m_Size--;
+        if (m_Count != 0)
+        {
+            m_Count--;
+        }
+        temporary = new T[m_Size];
+
+        for (size_t i = 1; i < m_Size + 1; i++)
+        {
+            temporary[i - 1] = m_List[i];
+        }
+
+        m_List = temporary;
+        return item;
     }
 
     template<typename T>
