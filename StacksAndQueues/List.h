@@ -1,17 +1,15 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
 namespace bavykin
 {
 	template<typename T>
 	class List
 	{
-	private:
-		void replaceList(List&) noexcept;
-
 	protected:
-		T* m_List;
+		std::shared_ptr<T[]> m_List;
 		int m_Size;
 		int m_Count;
 
@@ -19,11 +17,10 @@ namespace bavykin
 		List();
 		List(int);
 		List(List&) noexcept;
-		List(List&&);
-		~List() noexcept;
+		List(List&&) noexcept;
 
 		List& operator=(List&) noexcept;
-		List& operator=(List&&);
+		List& operator=(List&&) noexcept;
 		T operator[](int);
 
 		int getCount() noexcept;
@@ -40,36 +37,25 @@ namespace bavykin
 		{
 			throw std::length_error("List size out of range");
 		}
-		m_List = new T[size];
+		m_List = std::shared_ptr<T[]>(new T[size]);
 		m_Size = size;
 		m_Count = 0;
 	}
 
 	template<typename T>
-	List<T>::List(List& value) noexcept : m_Size(value.m_Size), m_Count(value.m_Count)
-	{
-		replaceList(value);
-	}
+	List<T>::List(List& value) noexcept : m_List(value.m_List), m_Size(value.m_Size), m_Count(value.m_Count) {}
 
 	template<typename T>
-	List<T>::List(List&& value) : m_List(value.m_List), m_Size(value.m_Size), m_Count(value.m_Count)
+	List<T>::List(List&& value) noexcept : m_List(std::move(value.m_List)), m_Size(value.m_Size), m_Count(value.m_Count)
 	{
-		value.m_List = NULL;
-		value.m_Size = NULL;
-		value.m_Count = NULL;
-	}
-
-	template<typename T>
-	List<T>::~List() noexcept
-	{
-		delete[] m_List;
+		value.m_Size = 0;
+		value.m_Count = 0;
 	}
 
 	template<typename T>
 	List<T>& List<T>::operator=(List& value) noexcept
 	{
-		replaceList(value);
-
+		m_List = value.m_List;
 		m_Size = value.m_Size;
 		m_Count = value.m_Count;
 
@@ -77,15 +63,15 @@ namespace bavykin
 	}
 
 	template<typename T>
-	List<T>& List<T>::operator=(List&& value)
+	List<T>& List<T>::operator=(List&& value) noexcept
 	{
-		m_List = value.m_List;
+		m_List = std::move(value.m_List);
 		m_Size = value.m_Size;
 		m_Count = value.m_Count;
 
-		value.m_List = NULL;
-		value.m_Size = NULL;
-		value.m_Count = NULL;
+		m_Size = value.m_Size;
+		m_Count = value.m_Count;
+
 		return *this;
 	}
 
@@ -110,18 +96,5 @@ namespace bavykin
 	bool List<T>::isEmpty() noexcept
 	{
 		return m_Count == 0;
-	}
-
-	template<typename T>
-	void List<T>::replaceList(List& value) noexcept
-	{
-		delete[] m_List;
-		m_List = nullptr;
-
-		m_List = new T[value.m_Size];
-		for (size_t i = 0; i < m_Count; i++)
-		{
-			m_List[i] = value.m_List[i];
-		}
 	}
 }

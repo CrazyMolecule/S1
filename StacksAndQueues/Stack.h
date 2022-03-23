@@ -1,6 +1,7 @@
 #pragma once
 
 #include "List.h"
+#include <memory>
 
 namespace bavykin
 {
@@ -28,46 +29,44 @@ namespace bavykin
 			return out;
 		};
 
-		void push(T);
+		void push(T) noexcept;
 		T pop();
 		T peek();
 	};
 
 	template <typename T>
-	void Stack<T>::push(T element)
+	void Stack<T>::push(T item) noexcept
 	{
-
-		T* tempStack;
+		std::shared_ptr<T[]> temporary;
 		if (m_Count == m_Size)
 		{
-			tempStack = new T[m_Size + 1];
+			temporary = std::shared_ptr<T[]>(new T[m_Size + 1]);
 			m_Size++;
 		}
 		else
 		{
-			tempStack = new T[m_Size];
+			temporary = std::shared_ptr<T[]>(new T[m_Size]);
 		}
 
-		for (int i = 0; i < m_Count; i++)
+		for (size_t i = 0; i < m_Count; i++)
 		{
-			tempStack[i] = m_List[i];
+			temporary[i] = m_List[i];
 		}
-
-		tempStack[m_Count] = element;
+		temporary[m_Count] = item;
 		m_Count++;
-		m_List = tempStack;
 
+		m_List = std::move(temporary);
 	}
 
 	template <typename T>
 	T Stack<T>::pop()
 	{
-		if (m_Size != 0)
+		if (m_Size == 0)
 		{
-			throw std::logic_error("The queue is empty!");
+			throw std::logic_error("The stack is empty!");
 		}
 
-		T* temporary;
+		std::shared_ptr<T[]> temporary;
 		T item = m_List[m_Count - 1];
 
 		m_Size--;
@@ -75,14 +74,14 @@ namespace bavykin
 		{
 			m_Count--;
 		}
-		temporary = new T[m_Size];
+		temporary = std::shared_ptr<T[]>(new T[m_Size]);
 
 		for (size_t i = 0; i < m_Size; i++)
 		{
 			temporary[i] = m_List[i];
 		}
 
-		m_List = temporary;
+		m_List = std::move(temporary);
 		return item;
 	}
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "List.h"
+#include <memory>
 
 namespace bavykin
 {
@@ -34,15 +35,15 @@ namespace bavykin
     template<typename T>
     void Queue<T>::push(T item) noexcept
     {
-        T* temporary;
+        std::shared_ptr<T[]> temporary;
         if (m_Count == m_Size)
         {
-            temporary = new T[m_Size + 1];
+            temporary = std::shared_ptr<T[]>(new T[m_Size + 1]);
             m_Size++;
         }
         else
         {
-            temporary = new T[m_Size];
+            temporary = std::shared_ptr<T[]>(new T[m_Size]);
         }
 
         for (size_t i = 0; i < m_Count; i++)
@@ -52,18 +53,18 @@ namespace bavykin
         temporary[m_Count] = item;
         m_Count++;
 
-        m_List = temporary;
+        m_List = std::move(temporary);
     }
 
     template<typename T>
     T Queue<T>::pop()
     {
-        if (m_Size != 0)
+        if (m_Size == 0)
         {
             throw std::logic_error("The queue is empty!");
         }
 
-        T* temporary;
+        std::shared_ptr<T[]> temporary;
         T item = m_List[0];
 
         m_Size--;
@@ -71,14 +72,14 @@ namespace bavykin
         {
             m_Count--;
         }
-        temporary = new T[m_Size];
+        temporary = std::shared_ptr<T[]>(new T[m_Size]);
 
         for (size_t i = 1; i < m_Size + 1; i++)
         {
             temporary[i - 1] = m_List[i];
         }
 
-        m_List = temporary;
+        m_List = std::move(temporary);
         return item;
     }
 
