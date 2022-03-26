@@ -46,7 +46,7 @@ namespace bavykin
 
 	Converter::Converter(std::string& Line)
 	{
-		setInfixQueue(Line); // fills in m_Infix field
+		setInfixQueue(Line);
 	}
 
 	Converter& Converter::toPostfix()
@@ -56,6 +56,7 @@ namespace bavykin
 		while (!m_InfixQueue.isEmpty())
 		{
 			element now = m_InfixQueue.pop();
+
 			switch (now.getType())
 			{
 			case type::openParenthesis:
@@ -71,7 +72,7 @@ namespace bavykin
 					m_PostfixQueue.push(now);
 					if (m_Stack.getCount() == 0)
 					{
-						throw "Check the quantity of brackets!";
+						throw std::logic_error("Check the quantity of brackets!");
 					}
 					now = m_Stack.pop();
 				}

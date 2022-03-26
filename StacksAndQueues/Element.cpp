@@ -2,7 +2,7 @@
 
 namespace bavykin
 {
-    Element::Element()
+    Element::Element() noexcept
     {
         m_Value = "";
         m_Type = Type::digit;
@@ -28,16 +28,20 @@ namespace bavykin
         {
             m_Type = Type::operators;
         }
+        else
+        {
+            throw std::logic_error("Given element is incorrect, expected a digit, parenthesis or an operator");
+        }
     }
 
     Element::Element(char value)
     {
-        char* arr = new char[1];
+        char* arr = new char[1]; //transform to "string"
         arr[0] = value;
         Element n(arr);
     }
 
-    Element::Element(const Element& value)
+    Element::Element(const Element& value) noexcept
     {
         m_Value = value.m_Value;
         m_Type = value.m_Type;
@@ -85,12 +89,12 @@ namespace bavykin
         return -1;
     }
 
-    Element::Type Element::getType()
+    Element::Type Element::getType() noexcept
     {
         return m_Type;
     }
 
-    std::string Element::getElement()
+    std::string Element::getElement() noexcept
     {
         return m_Value;
     }
@@ -111,6 +115,10 @@ namespace bavykin
             c = a * b;
             break;
         case '/':
+            if (b == 0) 
+            {
+                throw std::logic_error("Division by zero");
+            }
             c = a / b;
             break;
         case '%':
@@ -124,7 +132,7 @@ namespace bavykin
     Element::operator long long() const
     {
         if (m_Type != Type::digit)
-            throw "Not correct transform";
+            throw std::logic_error("Not correct transform");
 
         long long out = 0;
 
@@ -136,7 +144,7 @@ namespace bavykin
         return out;
     }
 
-    Element& Element::operator=(const Element& value)
+    Element& Element::operator=(const Element& value) noexcept
     {
         m_Value = value.m_Value;
         m_Type = value.m_Type;

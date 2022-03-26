@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 
         if (!fileInput.is_open())
         {
-            std::cerr << "Ошибка: Файл ввода не открыт!";
+            std::cerr << "Error: the input file was not opened!";
             return -1;
         }
     }
@@ -50,9 +50,14 @@ int main(int argc, char* argv[])
             std::cout << postfixLine << std::endl;
         }
     }
-    catch (const char* exception)
+    catch (std::logic_error& exception)
     {
-        std::cerr << exception << std::endl;
+        std::cerr << "Logic error! " << exception.what() << std::endl;
+        return -1;
+    }
+    catch (std::length_error& exception)
+    {
+        std::cerr << "Length error! " << exception.what() << std::endl;
         return -1;
     }
 

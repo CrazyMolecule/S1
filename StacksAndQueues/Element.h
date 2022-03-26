@@ -25,20 +25,20 @@ namespace bavykin
 		bool isOperators();
 
 	public:
-		Element();
+		Element() noexcept;
 		Element(std::string);
 		Element(char);
-		Element(const Element&);
+		Element(const Element&) noexcept;
 
-		int getOperatorId();
-		Type getType();
-		std::string getElement();
 		bool isDigit();
+		int getOperatorId();
+		Type getType() noexcept;
+		std::string getElement() noexcept;
 
 		long long calculate(long long, long long);
 
 		explicit operator long long() const;
-		Element& operator=(const Element&);
+		Element& operator=(const Element&) noexcept;
 
 		friend std::ostream& operator<<(std::ostream& out, const Element& value)
 		{
