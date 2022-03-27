@@ -1,5 +1,3 @@
-#pragma once
-
 #include <string>
 #include <iostream>
 
@@ -7,6 +5,8 @@
 #include "Stack.h"
 #include "Element.h"
 
+#ifndef CONVERTER_H
+#define CONVERTER_H
 namespace bavykin
 {
 	class Converter
@@ -26,3 +26,4 @@ namespace bavykin
 		long long calculate();
 	};
 }
+#endif

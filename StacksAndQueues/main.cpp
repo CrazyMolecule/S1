@@ -10,66 +10,66 @@ using namespace bavykin;
 
 int main(int argc, char* argv[])
 {
-    setlocale(LC_ALL, "ru");
-    
-    std::istream* input;
-    std::ifstream fileInput;
+	setlocale(LC_ALL, "ru");
 
-    if (argc == 1)
-    {
-        input = &std::cin;
-    }
-    else
-    {
-        std::string filename = argv[1];
-        fileInput.open(filename);
-        input = &fileInput;
+	std::istream* input;
+	std::ifstream fileInput;
 
-        if (!fileInput.is_open())
-        {
-            std::cerr << "Error: the input file was not opened!";
-            return -1;
-        }
-    }
+	if (argc == 1)
+	{
+		input = &std::cin;
+	}
+	else
+	{
+		std::string filename = argv[1];
+		fileInput.open(filename);
+		input = &fileInput;
 
-    stack<long long> output;
-    std::string line = "";
-    try
-    {
-        while (getline(*input, line))
-        {
-            if (line.empty())
-            {
-                continue;
-            }
+		if (!fileInput.is_open())
+		{
+			std::cerr << "Error: the input file was not opened!";
+			return -1;
+		}
+	}
 
-            Converter convertible(line);
-            long long postfixLine = convertible.toPostfix().calculate();
-            output.push(postfixLine);
+	stack<long long> output;
+	std::string line = "";
+	try
+	{
+		while (getline(*input, line))
+		{
+			if (line.empty())
+			{
+				continue;
+			}
 
-            std::cout << postfixLine << std::endl;
-        }
-    }
-    catch (std::logic_error& exception)
-    {
-        std::cerr << "Logic error! " << exception.what() << std::endl;
-        return -1;
-    }
-    catch (std::length_error& exception)
-    {
-        std::cerr << "Length error! " << exception.what() << std::endl;
-        return -1;
-    }
+			Converter convertible(line);
+			long long postfixLine = convertible.toPostfix().calculate();
+			output.push(postfixLine);
 
-    while (!output.isEmpty())
-    {
-        std::cout << output.pop();
+			std::cout << postfixLine << std::endl;
+		}
+	}
+	catch (std::logic_error& exception)
+	{
+		std::cerr << "Logic error! " << exception.what() << std::endl;
+		return -1;
+	}
+	catch (std::length_error& exception)
+	{
+		std::cerr << "Length error! " << exception.what() << std::endl;
+		return -1;
+	}
 
-        if (!output.isEmpty())
-            std::cout << ' ';
-    }
+	while (!output.isEmpty())
+	{
+		std::cout << output.pop();
 
-    fileInput.close();
+		if (!output.isEmpty())
+			std::cout << ' ';
+	}
 
-    return 0;
+	fileInput.close();
+
+	return 0;
 }

@@ -1,8 +1,8 @@
-#pragma once
-
 #include <string>
 #include <iostream>
 
+#ifndef ELEMENT_H
+#define ELEMENT_H
 namespace bavykin
 {
 	class Element
@@ -50,3 +50,4 @@ namespace bavykin
 	};
 	using element = Element;
 }
+#endif

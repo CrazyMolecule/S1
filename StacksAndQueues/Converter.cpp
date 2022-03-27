@@ -66,13 +66,18 @@ namespace bavykin
 				m_PostfixQueue.push(now);
 				break;
 			case type::closeParenthesis:
+				if (m_Stack.getCount() == 0)
+				{
+					throw std::logic_error("Check the location and quantity of brackets!");
+				}
+
 				now = m_Stack.pop();
 				while (now.getType() != type::openParenthesis)
 				{
 					m_PostfixQueue.push(now);
 					if (m_Stack.getCount() == 0)
 					{
-						throw std::logic_error("Check the quantity of brackets!");
+						throw std::logic_error("Check the location and quantity of brackets!");
 					}
 					now = m_Stack.pop();
 				}
@@ -107,6 +112,17 @@ namespace bavykin
 				}
 			}
 		}
+		if (m_PostfixQueue.isEmpty())
+		{
+			throw std::logic_error("Given expression is incorrect.");
+		}
+
+		std::string lastSymbol = m_PostfixQueue[m_PostfixQueue.getCount() - 1].getElement();
+
+		if (lastSymbol == "(")
+		{
+			throw std::logic_error("Check the quantity of brackets!");
+		}
 		return *this;
 	}
 
@@ -122,25 +138,31 @@ namespace bavykin
 			{
 				auto now = m_PostfixQueue.pop();
 
-				if (now.getType() == type::digit)
+				switch (now.getType())
+				{
+				case type::digit:
 				{
 					long long nowDigit = static_cast<long long>(now);
-
 					out.push(nowDigit);
 				}
-				else if (now.getType() == type::operators)
-				{
-					long long b = out.pop();
-					long long a = out.pop();
+				break;
+				case type::operators:
+					long long b;
+					long long a;
 
-					if (now.getElement()[0] == '%')
+					try
 					{
-						out.push(((a % b) + b) % b);
+						b = out.pop();
+						a = out.pop();
 					}
-					else
+					catch (std::logic_error& exception)
 					{
-						out.push(now.calculate(a, b));
+						throw std::logic_error("Given expression is incorrect.");
 					}
+
+					out.push(now.calculate(a, b));
+
+					break;
 				}
 			}
 			return out[0];

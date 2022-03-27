@@ -1,8 +1,8 @@
-#pragma once
-
 #include <iostream>
 #include <memory>
 
+#ifndef LIST_H
+#define LIST_H
 namespace bavykin
 {
 	template<typename T>
@@ -82,7 +82,7 @@ namespace bavykin
 		{
 			throw std::length_error("List size out of range");
 		}
-			
+
 		return m_List[index];
 	}
 
@@ -98,3 +98,4 @@ namespace bavykin
 		return m_Count == 0;
 	}
 }
+#endif

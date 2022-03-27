@@ -1,19 +1,19 @@
-#pragma once
-
 #include "List.h"
 #include <memory>
 
+#ifndef STACK_H
+#define STACK_H
 namespace bavykin
 {
-	template <typename T>
+	template<typename T>
 	class Stack : public List<T>
 	{
-	public:
+	private:
 		using List<T>::m_List;
 		using List<T>::m_Size;
 		using List<T>::m_Count;
-		using List<T>::List;
 
+	public:
 		friend std::ostream& operator<<(std::ostream& out, const Stack<T>& value)
 		{
 			out << "Stack(stack={";
@@ -94,3 +94,4 @@ namespace bavykin
 	template <typename T>
 	using stack = Stack<T>;
 }
+#endif
