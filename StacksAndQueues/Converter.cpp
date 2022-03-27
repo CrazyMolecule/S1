@@ -7,7 +7,7 @@ namespace bavykin
 		m_InfixQueue = splitAndTransform(line);
 	}
 
-	queue<element> Converter::splitAndTransform(std::string line, const char sep)
+	queue<element> Converter::splitAndTransform(std::string line, const char sep) const
 	{
 		queue<element> tempQueue;
 
@@ -92,8 +92,10 @@ namespace bavykin
 					while (now.getOperatorId() <= m_Stack.peek().getOperatorId())
 					{
 						m_PostfixQueue.push(m_Stack.pop());
-						if (m_Stack.isEmpty()) // Выход из цикла заранее, чтобы не крашилось - m_Stack.peek() returns 0
+						if (m_Stack.isEmpty())
+						{
 							break;
+						}
 					}
 					m_Stack.push(now);
 				}
@@ -104,7 +106,7 @@ namespace bavykin
 				break;
 			}
 
-			if (m_InfixQueue.isEmpty()) // Выталкивание под конец
+			if (m_InfixQueue.isEmpty())
 			{
 				while (!m_Stack.isEmpty())
 				{
@@ -131,7 +133,6 @@ namespace bavykin
 		if (!m_PostfixQueue.isEmpty())
 		{
 			using type = element::Type;
-
 			stack<long long> out;
 
 			while (!m_PostfixQueue.isEmpty())
@@ -165,6 +166,7 @@ namespace bavykin
 					break;
 				}
 			}
+
 			return out[0];
 		}
 	}

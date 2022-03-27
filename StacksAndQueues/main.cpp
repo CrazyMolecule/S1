@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 		if (!fileInput.is_open())
 		{
 			std::cerr << "Error: the input file was not opened!";
-			return -1;
+			return 1;
 		}
 	}
 
@@ -46,19 +46,17 @@ int main(int argc, char* argv[])
 			Converter convertible(line);
 			long long postfixLine = convertible.toPostfix().calculate();
 			output.push(postfixLine);
-
-			std::cout << postfixLine << std::endl;
 		}
 	}
 	catch (std::logic_error& exception)
 	{
 		std::cerr << "Logic error! " << exception.what() << std::endl;
-		return -1;
+		return 2;
 	}
 	catch (std::length_error& exception)
 	{
 		std::cerr << "Length error! " << exception.what() << std::endl;
-		return -1;
+		return 2;
 	}
 
 	while (!output.isEmpty())
@@ -66,7 +64,9 @@ int main(int argc, char* argv[])
 		std::cout << output.pop();
 
 		if (!output.isEmpty())
+		{
 			std::cout << ' ';
+		}
 	}
 
 	fileInput.close();

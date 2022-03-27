@@ -47,7 +47,7 @@ namespace bavykin
 		m_Type = value.m_Type;
 	}
 
-	bool Element::isDigit()
+	bool Element::isDigit() const
 	{
 		for (char c : m_Value)
 		{
@@ -59,22 +59,22 @@ namespace bavykin
 		return true;
 	}
 
-	bool Element::isOpenParenthesis()
+	bool Element::isOpenParenthesis() const
 	{
 		return '(' == m_Value[0];
 	}
 
-	bool Element::isCloseParenthesis()
+	bool Element::isCloseParenthesis() const
 	{
 		return ')' == m_Value[0];
 	}
 
-	bool Element::isOperators()
+	bool Element::isOperators() const
 	{
 		return getOperatorId() != -1;
 	}
 
-	int Element::getOperatorId()
+	int Element::getOperatorId() const
 	{
 		switch (m_Value[0])
 		{
@@ -89,17 +89,17 @@ namespace bavykin
 		return -1;
 	}
 
-	Element::Type Element::getType() noexcept
+	Element::Type Element::getType() const noexcept
 	{
 		return m_Type;
 	}
 
-	std::string Element::getElement() noexcept
+	std::string Element::getElement() const noexcept
 	{
 		return m_Value;
 	}
 
-	long long Element::calculate(long long a, long long b)
+	long long Element::calculate(long long a, long long b) const
 	{
 		long long c = 0;
 
@@ -136,7 +136,9 @@ namespace bavykin
 	Element::operator long long() const
 	{
 		if (m_Type != Type::digit)
+		{
 			throw std::logic_error("Not correct transform!");
+		}
 
 		long long out = 0;
 

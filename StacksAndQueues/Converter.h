@@ -11,19 +11,19 @@ namespace bavykin
 {
 	class Converter
 	{
+	public:
+		Converter(std::string&);
+
+		Converter& toPostfix();
+		long long calculate();
+
 	private:
 		queue<element> m_InfixQueue;
 		stack<element> m_Stack;
 		queue<element> m_PostfixQueue;
 
 		void setInfixQueue(std::string);
-
-		queue<element> splitAndTransform(std::string, const char = ' ');
-	public:
-		Converter(std::string&);
-
-		Converter& toPostfix();
-		long long calculate();
+		queue<element> splitAndTransform(std::string, const char = ' ') const;
 	};
 }
 #endif

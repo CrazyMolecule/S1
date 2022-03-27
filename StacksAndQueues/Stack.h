@@ -6,46 +6,31 @@
 namespace bavykin
 {
 	template<typename T>
-	class Stack : public List<T>
+	class Stack : public List< T >
 	{
+	public:
+		void push(T) noexcept;
+		T pop();
+		T peek() const;
+
 	private:
 		using List<T>::m_List;
 		using List<T>::m_Size;
 		using List<T>::m_Count;
-
-	public:
-		friend std::ostream& operator<<(std::ostream& out, const Stack<T>& value)
-		{
-			out << "Stack(stack={";
-			for (size_t i = 0; i < value.m_Size; i++)
-			{
-				out << value.m_List[i];
-				if (i != value.m_Size - 1)
-					out << ", ";
-			}
-			out << "}";
-			out << ", count=" << value.m_Count << ", size=" << value.m_Size << ")";
-
-			return out;
-		};
-
-		void push(T) noexcept;
-		T pop();
-		T peek();
 	};
 
 	template <typename T>
-	void Stack<T>::push(T item) noexcept
+	void Stack< T >::push(T item) noexcept
 	{
-		std::shared_ptr<T[]> temporary;
+		std::shared_ptr< T[] > temporary;
 		if (m_Count == m_Size)
 		{
-			temporary = std::shared_ptr<T[]>(new T[m_Size + 1]);
+			temporary = std::shared_ptr< T[] >(new T[m_Size + 1]);
 			m_Size++;
 		}
 		else
 		{
-			temporary = std::shared_ptr<T[]>(new T[m_Size]);
+			temporary = std::shared_ptr< T[] >(new T[m_Size]);
 		}
 
 		for (size_t i = 0; i < m_Count; i++)
@@ -66,7 +51,7 @@ namespace bavykin
 			throw std::logic_error("The stack is empty!");
 		}
 
-		std::shared_ptr<T[]> temporary;
+		std::shared_ptr< T[] > temporary;
 		T item = m_List[m_Count - 1];
 
 		m_Size--;
@@ -74,7 +59,7 @@ namespace bavykin
 		{
 			m_Count--;
 		}
-		temporary = std::shared_ptr<T[]>(new T[m_Size]);
+		temporary = std::shared_ptr< T[] >(new T[m_Size]);
 
 		for (size_t i = 0; i < m_Size; i++)
 		{
@@ -86,12 +71,12 @@ namespace bavykin
 	}
 
 	template <typename T>
-	T Stack<T>::peek()
+	T Stack<T>::peek() const
 	{
 		return m_List[m_Count - 1];
 	}
 
 	template <typename T>
-	using stack = Stack<T>;
+	using stack = Stack< T >;
 }
 #endif

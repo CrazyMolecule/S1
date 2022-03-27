@@ -8,52 +8,52 @@ namespace bavykin
 	template<typename T>
 	class List
 	{
-	protected:
-		std::shared_ptr<T[]> m_List;
-		int m_Size;
-		int m_Count;
-
 	public:
 		List();
-		List(int);
-		List(List&) noexcept;
+		List(const List&) noexcept;
 		List(List&&) noexcept;
+		List(int);
 
-		List& operator=(List&) noexcept;
+		List& operator=(const List&) noexcept;
 		List& operator=(List&&) noexcept;
-		T operator[](int);
+		T operator[](int) const;
 
-		int getCount() noexcept;
-		bool isEmpty() noexcept;
+		int getCount() const noexcept;
+		bool isEmpty() const noexcept;
+
+	protected:
+		std::shared_ptr< T[] > m_List;
+		int m_Size;
+		int m_Count;
 	};
 
 	template<typename T>
-	List<T>::List() : List(0) {}
+	List< T >::List() : List(0) {}
 
 	template<typename T>
-	List<T>::List(int size)
+	List< T >::List(int size)
 	{
 		if (size < 0)
 		{
 			throw std::length_error("List size out of range");
 		}
-		m_List = std::shared_ptr<T[]>(new T[size]);
+		m_List = std::shared_ptr< T[] >(new T[size]);
 		m_Size = size;
 		m_Count = 0;
 	}
 
 	template<typename T>
-	List<T>::List(List& value) noexcept : m_List(value.m_List), m_Size(value.m_Size), m_Count(value.m_Count) {}
+	List< T >::List(const List& value) noexcept : m_List(value.m_List), m_Size(value.m_Size), m_Count(value.m_Count) {}
 
 	template<typename T>
-	List<T>::List(List&& value) noexcept : m_List(std::move(value.m_List)), m_Size(value.m_Size), m_Count(value.m_Count)
+	List< T >::List(List&& value) noexcept : m_List(std::move(value.m_List)), m_Size(value.m_Size), m_Count(value.m_Count)
 	{
 		value.m_Size = 0;
 		value.m_Count = 0;
 	}
 
 	template<typename T>
-	List<T>& List<T>::operator=(List& value) noexcept
+	List< T >& List< T >::operator=(const List& value) noexcept
 	{
 		m_List = value.m_List;
 		m_Size = value.m_Size;
@@ -63,7 +63,7 @@ namespace bavykin
 	}
 
 	template<typename T>
-	List<T>& List<T>::operator=(List&& value) noexcept
+	List< T >& List< T >::operator=(List&& value) noexcept
 	{
 		m_List = std::move(value.m_List);
 		m_Size = value.m_Size;
@@ -76,7 +76,7 @@ namespace bavykin
 	}
 
 	template<typename T>
-	T List<T>::operator[](int index)
+	T List< T >::operator[](int index) const
 	{
 		if (index < 0 or index >= m_Size)
 		{
@@ -87,13 +87,13 @@ namespace bavykin
 	}
 
 	template<typename T>
-	int List<T>::getCount() noexcept
+	int List< T >::getCount() const noexcept
 	{
 		return m_Size;
 	}
 
 	template<typename T>
-	bool List<T>::isEmpty() noexcept
+	bool List< T >::isEmpty() const noexcept
 	{
 		return m_Count == 0;
 	}
