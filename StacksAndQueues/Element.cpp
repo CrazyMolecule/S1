@@ -1,4 +1,5 @@
 #include "Element.h"
+#include <cmath>
 
 namespace bavykin
 {
@@ -102,7 +103,7 @@ namespace bavykin
   long long Element::calculate(long long a, long long b) const
   {
     long long c = 0;
-    bool overflow;
+    bool overflow = false;
 
     switch (m_Value[0])
     {
@@ -123,7 +124,7 @@ namespace bavykin
       {
         throw std::logic_error("Division by zero!");
       }
-      overflow = static_cast<double>(a) / static_cast<double>(b) != static_cast<double>(a / b);
+      overflow = trunc(static_cast<double>(a) / static_cast<double>(b)) != static_cast<double>(a / b);
       c = a / b;
       break;
     case '%':
